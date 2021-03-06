@@ -18,6 +18,8 @@ class Firebase {
 
     if (process.env.REACT_APP_ENV === 'local')
       this.db.useEmulator('localhost', 8080)
+
+    this.eventChannels = {}
   }
   // User Sagas
 
@@ -37,6 +39,7 @@ class Firebase {
 
     loggedUser.userId = user.uid
     loggedUser.userEmail = user.email
+    loggedUser.userName = user.displayName
     // loggedUser.brandId = (idTokenResult.claims || {}).brandId
     // loggedUser.role = (idTokenResult.claims || {}).role
 
@@ -54,7 +57,7 @@ class Firebase {
     const provider = new app.auth.GoogleAuthProvider()
     provider.addScope('profile')
     provider.addScope('email')
-    await this.auth.signInWithPopup(provider)
+    await this.auth.signInWithRedirect(provider)
     let user = await this.getUser()
     if (user) return await this.processUser()
     else return null
@@ -267,19 +270,12 @@ class Firebase {
     return true
   }
 
-  // async setWatch({ projectId, collectionId, setChanges, setBulkChanges = () => {} } = {}) {
-  //   const ref = this.db.collection(collectionId)
-  //   const channel = eventChannel(emit => ref.onSnapshot(emit))
-  //   while (true) {
-  //     const data = await take(channel)
-  //     if (!setChanges)
-  //       await setBulkChanges(data.docChanges())
-  //     else
-  //       for (let change of data.docChanges())
-  //         if (change.type === 'added' || change.type === 'modified' || change.type === 'removed')
-  //           await setChanges(change.doc.data(), change.type)
-  //   }
-  // }
+  async setWatchDocument({ docId, collectionId, setChanges } = {}) {
+    this.eventChannels[collectionId + docId] = this.db.collection(collectionId).doc(docId)
+      .onSnapshot(doc => {
+        setChanges({ data: doc.data(), id: doc.id })
+      })
+  }
 
   dateToFirebaseTimestamp = (date) => {
     return app.firestore.Timestamp.fromDate(new Date(date))

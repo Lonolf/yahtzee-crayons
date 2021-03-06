@@ -5,13 +5,14 @@ A simple app to keep scores in game of yahtzee.
 
 ##  Views
 
-1. MainMenu
+1. Login
+2. MainMenu
   1. Create New Game
   2. Enter Game
   3. Enter Name (saved in localStorage?)
-2. ScoreCard
+3. ScoreCard
   1. Game
-3. Victory
+4. Victory
 
 ## Models
 
@@ -42,6 +43,7 @@ A simple app to keep scores in game of yahtzee.
 * Material-ui (core, icons, lab, data-grid)
 * Date-fns
 * Immer
+* uniqid
 * React-Router
 
 ## TODO

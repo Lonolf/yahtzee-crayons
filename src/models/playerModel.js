@@ -7,8 +7,10 @@ export const playerModel = ({
   userName = null,
   playerEmail = null,
   userEmail = null,
+  playerScores = {},
 }) => ({
   playerId: String(playerId ?? userId ?? uniqid()),
   playerName: String(playerName ?? userName ?? ''),
   playerEmail: String(playerEmail ?? userEmail ?? ''),
+  playerScores: playerScores ?? {},
 })

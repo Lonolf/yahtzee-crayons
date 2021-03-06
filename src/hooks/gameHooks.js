@@ -1,31 +1,38 @@
-import { gameModel } from 'models/gameModel'
 import { playerModel } from 'models/playerModel'
-import { createGame, loadGame } from 'sagas/gameSagas'
+import { createGame, loadGame, watchGame } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 
-export const useCreateNewGame = () => {
+export const useWatchGame = () => {
   const dispatch = useDispatch()
+  const setGame = payload => dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+
+  return async({ gameId }) => {
+    watchGame({ gameId, setGame })
+  }
+}
+
+export const useCreateNewGame = () => {
   const user = useSelector(state => state.user)
+  const watchGameHook = useWatchGame()
 
   return async() => {
-    const firstPlayer = playerModel(user)
-    // La creazione del game potrebbe andare nella createGame
-    const game = gameModel({ players: { [firstPlayer.playerId]: firstPlayer } })
-    const gameId = await createGame({ game })
+    const player = playerModel(user)
+    const gameId = await createGame({ player })
 
     if (gameId != null)
-      dispatch({ type: actions.REDUCE_CREATE_GAME, payload: { gameId, ...game } })
+      watchGameHook({ gameId })
   }
 }
 
 export const useLoadGame = () => {
-  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const watchGameHook = useWatchGame()
 
   return async({ gameId }) => {
     const player = playerModel(user)
-    const game = await loadGame({ gameId, player })
-    dispatch({ type: actions.REDUCE_CREATE_GAME, payload: game })
+    await loadGame({ gameId, player })
+    if (gameId != null)
+      watchGameHook({ gameId })
   }
 }
