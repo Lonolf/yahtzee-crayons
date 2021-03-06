@@ -58,3 +58,19 @@ export const loadGame = async({ gameId, player }) => {
     return null
   }
 }
+
+export const saveGame = async({ game }) => {
+  try {
+    const newGame = gameModel(game)
+    await firebase.setCollectionDoc({
+      collectionId: 'games',
+      docId: game.gameId,
+      data: newGame,
+    })
+
+    return newGame
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}

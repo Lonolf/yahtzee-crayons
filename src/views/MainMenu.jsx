@@ -1,20 +1,14 @@
 import React from 'react'
 import { Button, Dialog, DialogTitle, TextField, Typography } from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux'
-import * as actions from 'redux/actions'
+import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useCreateNewGame, useLoadGame } from 'hooks/gameHooks'
 
 const MainMenu = () => {
   const user = useSelector(state => state.user)
   const [gameId, setGameId] = React.useState('')
-  const dispatch = useDispatch()
   const createNewGame = useCreateNewGame()
   const loadGame = useLoadGame()
-
-  const onChangeName = event => {
-    dispatch({ type: actions.REDUCE_EDIT_USER, payload: { userName: event.target.value } })
-  }
 
   return (
     <Dialog open>

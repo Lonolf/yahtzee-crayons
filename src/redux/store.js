@@ -16,7 +16,7 @@ const disableDevTools = () => {
       window.__REACT_DEVTOOLS_GLOBAL_HOOK__[prop] = null
 }
 
-if (process.env.REACT_APP_ENV !== 'production')
+if (process.env.REACT_APP_ENV === 'production')
   disableDevTools()
 
 export default store

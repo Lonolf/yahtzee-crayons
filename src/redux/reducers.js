@@ -11,6 +11,12 @@ const game = produce((draft, { type, payload }) => {
       return payload
     case actions.REDUCE_EDIT_GAME:
       return ({ ...draft, ...payload })
+    case actions.REDUCE_EDIT_SCORE:
+      if (draft.players[payload.playerId].playerScores[payload.setId] == null)
+        draft.players[payload.playerId].playerScores[payload.setId] = {}
+
+      draft.players[payload.playerId].playerScores[payload.setId][payload.label] = payload.value
+      return draft
   }
 }, {})
 

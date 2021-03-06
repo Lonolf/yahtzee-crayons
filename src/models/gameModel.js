@@ -19,6 +19,7 @@ export const gameModel = ({
   gameId = null,
   players = {},
   status = 'started',
+  settings = { sets: 3 },
 }) => ({
   gameId: gameId ? String(gameId) : null,
   players: Object.values(players)
@@ -26,6 +27,7 @@ export const gameModel = ({
       const modeledPlayer = playerModel(player)
       return ({ ...list, [modeledPlayer.playerId]: modeledPlayer })
     }, {}),
+  settings, // TODO: validate settings
   status: statusesList.includes(status) ? status : statusesList[0],
   winner: calcWinner({ players }),
 })

@@ -19,6 +19,18 @@ const theme = createMuiTheme({
         padding: 24,
       },
     },
+    MuiToolbar: {
+      root: {
+        width: '100%',
+        justifyContent: 'space-between',
+      },
+    },
+  },
+  props: {
+    MuiToolbar: {
+      variant: 'dense',
+      disableGutters: true,
+    },
   },
 })
 

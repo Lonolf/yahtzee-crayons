@@ -1,5 +1,5 @@
 import { playerModel } from 'models/playerModel'
-import { createGame, loadGame, watchGame } from 'sagas/gameSagas'
+import { createGame, loadGame, watchGame, saveGame } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 
@@ -34,5 +34,16 @@ export const useLoadGame = () => {
     await loadGame({ gameId, player })
     if (gameId != null)
       watchGameHook({ gameId })
+  }
+}
+
+export const useSaveGame = () => {
+  const game = useSelector(state => state.game)
+  const dispatch = useDispatch()
+
+  return async() => {
+    const payload = await saveGame({ game })
+    console.log(payload)
+    dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
   }
 }
