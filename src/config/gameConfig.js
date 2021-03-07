@@ -13,3 +13,5 @@ export const rows = [
   { label: 'free' },
   { label: 'yahtzee' },
 ]
+
+export const rowsNumber = rows.length

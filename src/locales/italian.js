@@ -53,6 +53,10 @@ const generic = {
 const commons = {
 }
 
+const scoreCard = {
+  scoreCard_totals_title: 'Totali',
+}
+
 export const italian = {
   toPrice,
   locale: 'it',
@@ -61,4 +65,5 @@ export const italian = {
   ...dates,
   ...generic,
   ...commons,
+  ...scoreCard,
 }
