@@ -5,7 +5,7 @@ import { EmptyCell, ScoreCell } from 'components/ScoreCardCells'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { Toolbar, List } from '@material-ui/core'
-import { useSaveGame } from 'hooks/gameHooks'
+import { useSaveGame, useCheckFinishedGame } from 'hooks/gameHooks'
 import { rows } from 'config/gameConfig'
 import { useParams } from 'react-router'
 import translator from 'utility/translator'
@@ -17,6 +17,11 @@ const ScoreCard = () => {
   const saveGame = useSaveGame()
   const { playerId } = useParams()
   const currentSets = useSelector(getCurrentSets)
+  const checkFinishedGame = useCheckFinishedGame()
+
+  React.useEffect(() => {
+    checkFinishedGame()
+  }, [game])
 
   const setValue = payload => dispatch({ type: actions.REDUCE_EDIT_SCORE, payload })
 

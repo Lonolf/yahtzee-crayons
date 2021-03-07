@@ -3,6 +3,7 @@ import { createGame, loadGame, watchGame, saveGame } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { useHistory } from 'react-router-dom'
+import { checkGameFinished } from 'config/gameConfig'
 
 export const useWatchGame = () => {
   const dispatch = useDispatch()
@@ -32,7 +33,7 @@ export const useLoadGame = () => {
   const stateUser = useSelector(state => state.user)
   const watchGameHook = useWatchGame()
 
-  return async({ gameId, user }) => {
+  return async({ gameId, user } = {}) => {
     const player = playerModel(user || stateUser)
 
     await loadGame({ gameId, player })
@@ -46,7 +47,19 @@ export const useSaveGame = () => {
   const dispatch = useDispatch()
 
   return async() => {
-    const payload = await saveGame({ game })
-    dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+    const savedGame = await saveGame({ game })
+    dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
+  }
+}
+
+export const useCheckFinishedGame = () => {
+  const stateGame = useSelector(state => state.game)
+  const history = useHistory()
+
+  return async({ game } = {}) => {
+    const finished = checkGameFinished({ game: game ?? stateGame })
+
+    if (finished)
+      history.push('/victory')
   }
 }
