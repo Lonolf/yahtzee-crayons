@@ -6,11 +6,10 @@ import { useHistory } from 'react-router-dom'
 
 export const useWatchGame = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
   const setGame = payload => dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
   const history = useHistory()
 
-  return async({ gameId }) => {
+  return async({ gameId, user }) => {
     watchGame({ gameId, setGame })
     history.push(`/game/${user.userId}`)
   }
@@ -25,19 +24,20 @@ export const useCreateNewGame = () => {
     const gameId = await createGame({ player })
 
     if (gameId != null)
-      watchGameHook({ gameId })
+      watchGameHook({ gameId, user })
   }
 }
 
 export const useLoadGame = () => {
-  const user = useSelector(state => state.user)
+  const stateUser = useSelector(state => state.user)
   const watchGameHook = useWatchGame()
 
-  return async({ gameId }) => {
-    const player = playerModel(user)
+  return async({ gameId, user }) => {
+    const player = playerModel(user || stateUser)
+
     await loadGame({ gameId, player })
     if (gameId != null)
-      watchGameHook({ gameId })
+      watchGameHook({ gameId, user: user || stateUser })
   }
 }
 
