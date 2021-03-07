@@ -1,4 +1,7 @@
-import { italian } from 'locales/italian.js'
+import { italian } from 'locales/italian'
+
+const replacer = (string = '', props = {}) =>
+  string.replace(/{{[a-zA-Z]*}}/g, match => props[match.replace(/{|}/g, '')] ?? match)
 
 class Translator {
   constructor() {
@@ -9,27 +12,27 @@ class Translator {
 
   setLanguage = (language) => {
     this.language = language
-  };
+  }
 
-  fromLabel = (label) => {
-    if (this.language[label] != null) return this.language[label]
-    if (this.printUnmatchedLabels)
+  fromLabel = (label, props) => {
+    if (this.language[label] != null)
+      return replacer(this.language[label], props)
+
+    if (this.printUnmatchedLabels) {
       this.unmatchedLabels.add(label)
+      console.log('unmatchedLabels', this.unmatchedLabels)
+    }
+    return props != null ? JSON.stringify({ label, ...props }) : label
+  }
 
-    return label
-  };
-
-  toPrice = (price) => {
+  toPrice = price => {
     price = Number.isNaN(price) ? 0 : Number(price)
 
-    if (this.language.toPrice != null) return this.language.toPrice(price)
-    else return price
-  };
-
-  stringLiteral = ({ label, ...values }) =>
-    this.language[label]
-      ? this.language[label](values)
-      : label + JSON.stringify(values);
+    if (this.language.toPrice != null)
+      return this.language.toPrice(price)
+    else
+      return price
+  }
 }
 
 export default new Translator()

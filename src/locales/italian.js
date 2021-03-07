@@ -57,6 +57,12 @@ const scoreCard = {
   scoreCard_totals_title: 'Totali',
 }
 
+const victory = {
+  victory_title: 'Vittoria!',
+  victory_winner_text: 'Il giocare {{playerName}} ha vinto conquistando {{sets}} sets con un totale di {{total}} punti',
+  victory_draw_text: 'La partita è finita in pareggio. Complimenti a tutti i giocatori!',
+}
+
 export const italian = {
   toPrice,
   locale: 'it',
@@ -66,4 +72,5 @@ export const italian = {
   ...generic,
   ...commons,
   ...scoreCard,
+  ...victory,
 }
