@@ -23,6 +23,7 @@ const theme = createMuiTheme({
       root: {
         width: '100%',
         justifyContent: 'space-between',
+        alignItems: 'stretch',
       },
     },
   },

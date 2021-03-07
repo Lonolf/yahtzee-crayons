@@ -19,7 +19,7 @@ export const gameModel = ({
   gameId = null,
   players = {},
   status = 'started',
-  settings = { sets: 3 },
+  settings = { sets: 3, players: 2 },
 }) => ({
   gameId: gameId ? String(gameId) : null,
   players: Object.values(players)

@@ -42,9 +42,13 @@ export const loadGame = async({ gameId, player }) => {
     if (game?.players?.[player.playerId] != null)
       return gameId
 
-    // TODO: check maxNumber
+    if (game.settings?.players <= Object.keys(game.players ?? {}))
+      throw new Error('Players limit reached')
 
-    const newGame = gameModel({ ...game, players: { ...game.players, [player.playerId]: player } })
+    const newGame = gameModel({
+      ...game,
+      players: { ...game.players, [player.playerId]: player },
+    })
 
     await firebase.setCollectionDoc({
       collectionId: 'games',

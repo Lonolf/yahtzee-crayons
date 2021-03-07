@@ -1,7 +1,16 @@
 import React from 'react'
-import { TextField } from '@material-ui/core'
+import { styled } from '@material-ui/core/styles'
+import { TextField, Box } from '@material-ui/core'
 
-export const ScoreCell = ({ playerId, setId, label, value = 0, setValue = () => {}, onBlur = () => {} }) => {
+export const EmptyCell = styled(Box)({
+  border: '1px solid black',
+  flex: '1 0 50px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+export const ScoreCell = ({ playerId, setId, label, value = 0, setValue = () => {}, onBlur = () => {}, disabled = false }) => {
   const onChange = event =>
     setValue({ playerId, setId, label, value: Number(event.target.value.replace(/\D/, '') || 0) })
 
@@ -12,7 +21,9 @@ export const ScoreCell = ({ playerId, setId, label, value = 0, setValue = () => 
       onChange={onChange}
       onBlur={onBlur}
       type='number'
-      style={{ width: 50 }}
+      style={{ width: 50, borderBottom: 0 }}
+      inputProps={{ style: { textAlign: 'center' } }}
+      disabled={disabled}
     />
   )
 }

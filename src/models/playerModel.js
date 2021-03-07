@@ -8,9 +8,11 @@ export const playerModel = ({
   playerEmail = null,
   userEmail = null,
   playerScores = {},
+  loggedPlayer = false,
 }) => ({
   playerId: String(playerId ?? userId ?? uniqid()),
   playerName: String(playerName ?? userName ?? ''),
   playerEmail: String(playerEmail ?? userEmail ?? ''),
   playerScores: playerScores ?? {},
+  loggedPlayer: Boolean(loggedPlayer || userId != null),
 })
