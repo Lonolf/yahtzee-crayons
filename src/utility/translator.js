@@ -16,7 +16,7 @@ class Translator {
 
   fromLabel = (label, props) => {
     if (this.language[label] != null)
-      return replacer(this.language[label], props)
+      return props != null ? replacer(this.language[label], props) : this.language[label]
 
     if (this.printUnmatchedLabels) {
       this.unmatchedLabels.add(label)

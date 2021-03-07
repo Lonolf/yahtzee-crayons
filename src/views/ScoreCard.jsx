@@ -10,18 +10,23 @@ import { rows } from 'config/gameConfig'
 import { useParams } from 'react-router'
 import translator from 'utility/translator'
 import { getCurrentSets, getPlayersTotals } from 'redux/selectors'
+import { useResetApp } from 'hooks/routerHooks'
 
 const ScoreCard = () => {
-  const { user, game } = useSelector(state => state)
+  const { user, game, loading } = useSelector(state => state)
   const dispatch = useDispatch()
   const saveGame = useSaveGame()
-  const { playerId } = useParams()
+  const playerId = useParams()?.playerId ?? user.userId
   const currentSets = useSelector(getCurrentSets)
   const checkFinishedGame = useCheckFinishedGame()
+  const resetApp = useResetApp()
 
   React.useEffect(() => {
-    checkFinishedGame()
-  }, [game])
+    if (loading.length === 0 && game.gameId != null)
+      checkFinishedGame()
+    else if (loading.length === 0 && game.gameId == null)
+      resetApp()
+  }, [game, loading])
 
   const setValue = payload => dispatch({ type: actions.REDUCE_EDIT_SCORE, payload })
 
@@ -34,6 +39,7 @@ const ScoreCard = () => {
       <List style={{ border: '0.5px solid black', padding: 0 }}>
         {rows.map(row => (
           <Line
+            key={row.label}
             game={game}
             row={row}
             playerId={playerId}
@@ -78,9 +84,9 @@ const Totals = ({ game, playerId }) => {
 
   return (
     <Toolbar style={{ borderRadius: 5 }}>
-      <EmptyCell total>{translator.fromLabel('scoreCard_totals_title')}</EmptyCell>
+      <EmptyCell total='total'>{translator.fromLabel('scoreCard_totals_title')}</EmptyCell>
       {Array.from({ length: game.settings?.sets ?? 1 }).map((value, index) =>
-        <EmptyCell total key={index}>{totals?.[index + 1] ?? 0}</EmptyCell>)}
+        <EmptyCell total='total' key={index}>{totals?.[index + 1] ?? 0}</EmptyCell>)}
     </Toolbar>
   )
 }

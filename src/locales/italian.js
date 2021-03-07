@@ -48,6 +48,7 @@ const toPrice = (price) => {
 }
 
 const generic = {
+  generic_loading: 'Caricamento in corso',
 }
 
 const commons = {

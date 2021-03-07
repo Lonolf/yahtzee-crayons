@@ -2,43 +2,56 @@ import { playerModel } from 'models/playerModel'
 import { createGame, loadGame, watchGame, saveGame } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { checkGameFinished } from 'config/gameConfig'
 
 export const useWatchGame = () => {
   const dispatch = useDispatch()
-  const setGame = payload => dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
   const history = useHistory()
+  const location = useLocation()
+
+  const setGame = payload => {
+    dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+    if (!location.pathname.match('/game'))
+      history.push('/game')
+  }
 
   return async({ gameId, user }) => {
-    watchGame({ gameId, setGame })
-    history.push(`/game/${user.userId}`)
+    await watchGame({ gameId, setGame })
   }
 }
 
 export const useCreateNewGame = () => {
   const user = useSelector(state => state.user)
   const watchGameHook = useWatchGame()
+  const dispatch = useDispatch()
 
   return async() => {
+    dispatch({ type: actions.START_LOADING, payload: 'createNewGame' })
     const player = playerModel(user)
     const gameId = await createGame({ player })
 
     if (gameId != null)
       watchGameHook({ gameId, user })
+
+    dispatch({ type: actions.STOP_LOADING, payload: 'createNewGame' })
   }
 }
 
 export const useLoadGame = () => {
   const stateUser = useSelector(state => state.user)
   const watchGameHook = useWatchGame()
+  const dispatch = useDispatch()
 
   return async({ gameId, user } = {}) => {
+    dispatch({ type: actions.START_LOADING, payload: 'loadGame' })
     const player = playerModel(user || stateUser)
 
     await loadGame({ gameId, player })
     if (gameId != null)
       watchGameHook({ gameId, user: user || stateUser })
+
+    dispatch({ type: actions.STOP_LOADING, payload: 'loadGame' })
   }
 }
 

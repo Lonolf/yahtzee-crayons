@@ -9,7 +9,7 @@ import { useParams } from 'react-router'
 
 const MenuBar = () => {
   const { user, game } = useSelector(state => state)
-  const { playerId } = useParams()
+  const playerId = useParams()?.playerId ?? user.userId
   const changePlayer = useChangePlayer()
 
   const disabledButton = Object.keys(game.players ?? {}).length < 2

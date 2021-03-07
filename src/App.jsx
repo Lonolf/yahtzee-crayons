@@ -2,6 +2,7 @@ import React from 'react'
 
 import ThemeSelector from 'components/ThemeSelector'
 import ContentManager from 'views/ContentManager'
+import LoadingBar from 'components/LoadingBar'
 import { useAutoLogin } from 'hooks/userHooks'
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <ThemeSelector>
       <ContentManager />
+      <LoadingBar />
     </ThemeSelector>
   )
 }

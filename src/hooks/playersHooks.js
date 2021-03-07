@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 
 export const useChangePlayer = () => {
-  const { playerId } = useParams()
+  const userId = useSelector(state => state.user?.userId)
+  const playerId = useParams().playerId ?? userId
   const history = useHistory()
   const playersIdsList = useSelector(state => Object.keys(state.game?.players ?? {}))
 

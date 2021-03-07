@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from '@material-ui/core/styles'
 import { TextField, Box } from '@material-ui/core'
 
-export const EmptyCell = styled(Box)(({ total, theme }) => ({
+export const EmptyCell = styled(Box)(({ total = false, theme }) => ({
   border: `${total ? '2' : '1'}px solid ${theme.palette.primary.main}`,
   flex: '1 0 50px',
   display: 'flex',

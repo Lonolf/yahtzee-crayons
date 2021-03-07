@@ -3,7 +3,7 @@ import { gameModel } from 'models/gameModel'
 
 export const watchGame = async({ gameId, setGame = () => {} }) => {
   try {
-    firebase.setWatchDocument({
+    await firebase.setWatchDocument({
       collectionId: 'games',
       docId: gameId,
       setChanges: ({ data }) => setGame(data),

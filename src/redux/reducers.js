@@ -20,6 +20,15 @@ const game = produce((draft, { type, payload }) => {
   }
 }, {})
 
+const loading = produce((draft, { type, payload }) => {
+  switch (type) {
+    case actions.START_LOADING:
+      return ([...draft, payload])
+    case actions.STOP_LOADING:
+      return draft.filter(value => value !== payload)
+  }
+}, [])
+
 const user = produce((draft, { type, payload }) => {
   switch (type) {
     case actions.REDUCE_EDIT_USER:
@@ -29,6 +38,7 @@ const user = produce((draft, { type, payload }) => {
 
 const rootReducer = combineReducers({
   game,
+  loading,
   user,
 })
 
