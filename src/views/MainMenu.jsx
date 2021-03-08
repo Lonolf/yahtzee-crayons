@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dialog, DialogTitle, Divider, TextField, Typography } from '@material-ui/core'
+import { Button, Dialog, Divider, TextField, Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useCreateNewGame, useLoadGame } from 'hooks/gameHooks'
