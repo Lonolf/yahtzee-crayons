@@ -70,16 +70,24 @@ class Firebase {
     else return null
   }
 
-  async emailSignUp({ email, password }) {
+  async emailSignUp({ email, password, name = '' }) {
     await this.auth.createUserWithEmailAndPassword(email, password)
     let user = await this.getUser()
-    if (user) return await this.processUser()
-    else return null
+    if (user) {
+      await user.updateProfile({ displayName: name })
+      return await this.processUser()
+    } else {
+      return null
+    }
   }
 
   async signOut() {
     await this.auth.signOut()
     return true
+  }
+
+  async sendPasswordResetEmail({ email }) {
+    await this.auth.sendPasswordResetEmail(email)
   }
 
   async logEvent({ name, data }) {

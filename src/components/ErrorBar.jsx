@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import ErrorIcon from '@material-ui/icons/Error'
+import { useSelector, useDispatch } from 'react-redux'
+import * as actions from 'redux/actions'
 
 const useStyle = makeStyles(theme => ({
   toolbar: { minHeight: 0 },
@@ -13,10 +15,12 @@ const useStyle = makeStyles(theme => ({
   contentProps: { backgroundColor: theme.palette.error.main },
 }))
 
-const ErrorBar = ({
-  props: { error: { message = '', errorId } = {}, onClose = () => {} },
-}) => {
+const ErrorBar = () => {
   const classes = useStyle()
+  const { message = '', errorId } = useSelector(state => Object.values(state.error)[0] ?? {})
+  const dispatch = useDispatch()
+
+  const onClose = () => dispatch({ type: actions.REDUCE_DELETE_ERROR, payload: { errorId } })
 
   return (
     <Snackbar

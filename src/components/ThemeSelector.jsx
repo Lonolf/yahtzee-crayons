@@ -19,6 +19,12 @@ const theme = createMuiTheme({
         padding: 24,
       },
     },
+    MuiDivider: {
+      root: {
+        margin: '15px 5px',
+        height: 2,
+      },
+    },
     MuiToolbar: {
       root: {
         width: '100%',

@@ -35,7 +35,7 @@ const GoogleLogin = () => {
       variant='contained'
       color='secondary'
     >
-      {translator.fromLabel('Google Login')}
+      {translator.fromLabel('login_google_button')}
     </Button>
   )
 }

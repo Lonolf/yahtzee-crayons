@@ -49,9 +49,28 @@ const toPrice = (price) => {
 
 const generic = {
   generic_loading: 'Caricamento in corso',
+  generic_email: 'Email',
+  generic_password: 'Password',
+  generic_Name: 'Nome',
+  generic_confirm: 'Conferma',
 }
 
 const commons = {
+}
+
+const login = {
+  login_google_button: 'Acced con Google',
+  login_register_switch: 'Nuovo utente',
+  login_recoverPassword_button: 'Recupera password',
+  login_passwordRecovery_alert: 'Email recupero password inviata',
+}
+
+const mainMenu = {
+  mainMenu_title: 'Menù',
+  mainMenu_newGame: 'Nuovo',
+  mainMenu_gameId_label: 'Game ID',
+  mainMenu_loadGame: 'Carica',
+  mainMenu_logout: 'Logout',
 }
 
 const scoreCard = {
@@ -72,6 +91,8 @@ export const italian = {
   ...dates,
   ...generic,
   ...commons,
+  ...login,
+  ...mainMenu,
   ...scoreCard,
   ...victory,
 }

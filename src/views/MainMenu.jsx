@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dialog, DialogTitle, TextField, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogTitle, Divider, TextField, Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useCreateNewGame, useLoadGame } from 'hooks/gameHooks'
@@ -14,11 +14,10 @@ const MainMenu = () => {
 
   return (
     <Dialog open>
-      <DialogTitle>{translator.fromLabel('mainMenu_title')}</DialogTitle>
       <Typography>
         {user.userName ?? user.userEmail}
       </Typography>
-      <div style={{ height: 25 }} />
+      <Divider />
       <Button
         disabled={!!gameId || !user.userId}
         variant={!gameId ? 'contained' : 'outlined'}
@@ -26,14 +25,15 @@ const MainMenu = () => {
       >
         {translator.fromLabel('mainMenu_newGame')}
       </Button>
-      <div style={{ height: 25 }} />
+      <Divider />
       <TextField
         id='gameId'
         value={gameId}
         onChange={event => setGameId(event.target.value)}
         label={translator.fromLabel('mainMenu_gameId_label')}
+        variant='outlined'
       />
-      <div style={{ height: 25 }} />
+      <div style={{ height: 16 }} />
       <Button
         disabled={!gameId || !user.userId}
         variant={gameId ? 'contained' : 'outlined'}
@@ -41,7 +41,7 @@ const MainMenu = () => {
       >
         {translator.fromLabel('mainMenu_loadGame')}
       </Button>
-      <div style={{ height: 25 }} />
+      <Divider />
       <Button
         variant='contained'
         onClick={logout}

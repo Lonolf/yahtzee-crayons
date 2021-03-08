@@ -5,10 +5,13 @@ import produce from 'immer'
 import * as actions from './actions'
 import * as initialState from './initialState'
 
-const error = produce((draft, { type, payload: { error: { errorId, message } = {} } = {} }) => {
+import uniqid from 'uniqid'
+
+const error = produce((draft, { type, payload: { errorId, message } = {} }) => {
   switch (type) {
     case actions.REDUCE_CREATE_ERROR:
-      return { ...draft, [errorId]: { message, errorId } }
+      const newErrorId = errorId ?? uniqid()
+      return { ...draft, [newErrorId]: { message, errorId: newErrorId } }
     case actions.REDUCE_DELETE_ERROR:
       if (draft[errorId] != null)
         delete draft[errorId]

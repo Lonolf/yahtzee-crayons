@@ -45,6 +45,7 @@ A simple app to keep scores in game of yahtzee.
 * Immer
 * uniqid
 * React-Router
+* react-use
 
 ## TODO
 
@@ -54,5 +55,6 @@ A simple app to keep scores in game of yahtzee.
 - [ ] punteggi fissi le righe basse
 - [*] togliere gli zero per sapere dove hai segnato 
 - [*] account email
+  - [*] signup con nome
 - [*] inserire loading 
 - [ ] inserire error
