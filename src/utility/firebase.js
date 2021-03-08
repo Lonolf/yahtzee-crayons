@@ -70,6 +70,13 @@ class Firebase {
     else return null
   }
 
+  async emailSignUp({ email, password }) {
+    await this.auth.createUserWithEmailAndPassword(email, password)
+    let user = await this.getUser()
+    if (user) return await this.processUser()
+    else return null
+  }
+
   async signOut() {
     await this.auth.signOut()
     return true

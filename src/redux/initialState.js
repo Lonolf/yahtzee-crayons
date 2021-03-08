@@ -4,3 +4,5 @@ export const user = {
   userEmail: null,
   userRole: null,
 }
+
+export const loading = ['autoLogin']

@@ -7,6 +7,7 @@ export const useParseUrl = () => {
   const history = useHistory()
   const location = useLocation()
   const loadGame = useLoadGame()
+  const dispatch = useDispatch()
 
   return async({ user = {} } = {}) => {
     history.replace('/')
@@ -15,6 +16,8 @@ export const useParseUrl = () => {
       let gameId = new URLSearchParams(location.search).get('gameId')
       loadGame({ gameId, user })
     }
+
+    dispatch({ type: actions.STOP_LOADING, payload: 'autoLogin' })
   }
 }
 

@@ -5,6 +5,19 @@ import produce from 'immer'
 import * as actions from './actions'
 import * as initialState from './initialState'
 
+const error = produce((draft, { type, payload: { error: { errorId, message } = {} } = {} }) => {
+  switch (type) {
+    case actions.REDUCE_CREATE_ERROR:
+      return { ...draft, [errorId]: { message, errorId } }
+    case actions.REDUCE_DELETE_ERROR:
+      if (draft[errorId] != null)
+        delete draft[errorId]
+      return draft
+    default:
+      return draft
+  }
+}, {})
+
 const game = produce((draft, { type, payload }) => {
   switch (type) {
     case actions.REDUCE_CREATE_GAME:
@@ -27,16 +40,19 @@ const loading = produce((draft, { type, payload }) => {
     case actions.STOP_LOADING:
       return draft.filter(value => value !== payload)
   }
-}, [])
+}, initialState.loading)
 
 const user = produce((draft, { type, payload }) => {
   switch (type) {
+    case actions.REDUCE_CREATE_USER:
+      return payload
     case actions.REDUCE_EDIT_USER:
       return ({ ...draft, ...payload })
   }
 }, initialState.user)
 
 const rootReducer = combineReducers({
+  error,
   game,
   loading,
   user,
