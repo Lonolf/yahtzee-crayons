@@ -51,7 +51,7 @@ A simple app to keep scores in game of yahtzee.
 
 - [*] sistemare il translator
 - [ ] bloccare lo schermo acceso
-- [ ] sull'Enter blur
+- [*] sull'Enter blur
 - [ ] punteggi fissi le righe basse
 - [*] togliere gli zero per sapere dove hai segnato 
 - [*] account email

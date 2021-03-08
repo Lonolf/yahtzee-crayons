@@ -17,6 +17,9 @@ export const ScoreCell = ({ playerId, setId, label, value = '', setValue = () =>
   const onChange = event =>
     setValue({ playerId, setId, label, value: Number(event.target.value.replace(/\D/, '') || 0) })
 
+  const onKeyDown = event => event.keyCode === 13
+    ? document.activeElement.blur() : null
+
   return (
     <TextField
       id={label}
@@ -24,6 +27,7 @@ export const ScoreCell = ({ playerId, setId, label, value = '', setValue = () =>
       onChange={onChange}
       onFocus={() => setFocused(true)}
       onBlur={() => { onBlur(); setFocused(false) }}
+      onKeyDown={onKeyDown}
       type='number'
       style={{ width: 50, borderBottom: 0 }}
       inputProps={{ style: { textAlign: 'center' } }}
