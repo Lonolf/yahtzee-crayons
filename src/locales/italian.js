@@ -75,6 +75,12 @@ const mainMenu = {
 
 const scoreCard = {
   scoreCard_totals_title: 'Totali',
+  gameMenu_title: 'Menù di gioco',
+  gameMenu_share_title: 'Url',
+  gameMenu_share_text: 'Vieni a fare una partita con me!',
+  gameMenu_share_error: 'Condivisione link non disponibile',
+  gameMenu_gameId: 'GameId: ',
+  gameMenu_copy_error: 'Appunti non disponibili',
 }
 
 const victory = {
