@@ -14,7 +14,7 @@ const MainMenu = () => {
 
   return (
     <Dialog open>
-      <Typography>
+      <Typography variant='h5' color='primary'>
         {user.userName ?? user.userEmail}
       </Typography>
       <Divider />
@@ -22,6 +22,7 @@ const MainMenu = () => {
         disabled={!!gameId || !user.userId}
         variant={!gameId ? 'contained' : 'outlined'}
         onClick={createNewGame}
+        color='primary'
       >
         {translator.fromLabel('mainMenu_newGame')}
       </Button>
@@ -32,12 +33,14 @@ const MainMenu = () => {
         onChange={event => setGameId(event.target.value)}
         label={translator.fromLabel('mainMenu_gameId_label')}
         variant='outlined'
+        color='primary'
       />
       <div style={{ height: 16 }} />
       <Button
         disabled={!gameId || !user.userId}
         variant={gameId ? 'contained' : 'outlined'}
         onClick={() => loadGame({ gameId })}
+        color='primary'
       >
         {translator.fromLabel('mainMenu_loadGame')}
       </Button>
@@ -45,6 +48,7 @@ const MainMenu = () => {
       <Button
         variant='contained'
         onClick={logout}
+        color='secondary'
       >
         {translator.fromLabel('mainMenu_logout')}
       </Button>

@@ -2,6 +2,8 @@ import React from 'react'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
 
+const font = "'Cabin Sketch', sans-serif"
+
 const theme = createMuiTheme({
   overrides: {
     MuiDataGrid: {
@@ -43,6 +45,12 @@ const theme = createMuiTheme({
   palette: {
     primary: { main: '#006064' },
     secondary: { main: '#795548' },
+  },
+  typography: {
+    fontFamily: font,
+    button: {
+      textTransform: 'none',
+    },
   },
 })
 

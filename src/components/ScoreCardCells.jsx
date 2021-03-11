@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Checkbox } from '@material-ui/core'
 import EmptyCell from 'styleComponents/EmptyCell'
 
-const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBlur = () => {}, disabled = false }) => {
+const ScoreCell = ({ playerId, setId, row, value, setValue = () => {}, onBlur = () => {}, disabled = false }) => {
   const [focused, setFocused] = React.useState(false)
   const onChange = value =>
     setValue({ playerId, setId, label: row.label, value })
@@ -15,7 +15,7 @@ const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBl
       <EmptyCell>
         <TextField
           id={setId + row.label}
-          value={String(value)}
+          value={String(value ?? '')}
           onChange={event => onChange(Number(event.target.value.replace(/\D/, '') || 0))}
           onFocus={() => setFocused(true)}
           onBlur={() => { onBlur(); setFocused(false) }}

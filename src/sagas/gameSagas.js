@@ -31,10 +31,16 @@ export const createGame = async({ player }) => {
 }
 
 export const loadGame = async({ gameId, player }) => {
-  const game = await firebase.getCollectionDoc({
-    collectionId: 'games',
-    docId: gameId,
-  })
+  let game
+  try {
+    game = await firebase.getCollectionDoc({
+      collectionId: 'games',
+      docId: gameId,
+    })
+  } catch (error) {
+    console.error(error)
+    throw new Error('GameId not found')
+  }
 
   if (game?.players?.[player.playerId] != null)
     return true

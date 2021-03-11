@@ -72,19 +72,19 @@ const labelCell = {
   labelCell_lgSt_label: 'Scala di 5',
   labelCell_free_label: 'Somma',
   labelCell_yahtzee_label: 'Yahtzee',
-  labelCell_aces_rules: 'Somma il valore degli assi',
-  labelCell_twos_rules: 'Somma il valore dei due',
-  labelCell_threes_rules: 'Somma il valore dei tre',
-  labelCell_fours_rules: 'Somma il valore dei quattro',
-  labelCell_fives_rules: 'Somma il valore dei cinque',
-  labelCell_sixes_rules: 'Somma il valore dei sei',
-  labelCell_threeOf_rules: 'Solo se è presente un tris di dadi uguali, somma il valore di TUTTI i dadi',
-  labelCell_fourOf_rules: 'Solo se sono presenti quattro dadi uguali, somma il valore di TUTTI i dadi',
-  labelCell_fullHouse_rules: 'Una coppia e un tris di dadi',
-  labelCell_smSt_rules: 'Scala di quattro dadi consecutivi',
-  labelCell_lgSt_rules: 'Scala di cinque dadi consecutivi',
-  labelCell_free_rules: 'Somma liberamente il valore dei dadi',
-  labelCell_yahtzee_rules: 'Yahtzee! Cinque dadi uguali',
+  labelCell_aces_rule: 'Somma il valore degli assi',
+  labelCell_twos_rule: 'Somma il valore dei due',
+  labelCell_threes_rule: 'Somma il valore dei tre',
+  labelCell_fours_rule: 'Somma il valore dei quattro',
+  labelCell_fives_rule: 'Somma il valore dei cinque',
+  labelCell_sixes_rule: 'Somma il valore dei sei',
+  labelCell_threeOf_rule: 'Solo se è presente un tris di dadi uguali, somma il valore di TUTTI i dadi',
+  labelCell_fourOf_rule: 'Solo se sono presenti quattro dadi uguali, somma il valore di TUTTI i dadi',
+  labelCell_fullHouse_rule: 'Una coppia e un tris di dadi',
+  labelCell_smSt_rule: 'Scala di quattro dadi consecutivi',
+  labelCell_lgSt_rule: 'Scala di cinque dadi consecutivi',
+  labelCell_free_rule: 'Somma liberamente il valore dei dadi',
+  labelCell_yahtzee_rule: 'Yahtzee! Cinque dadi uguali',
 }
 
 const login = {
@@ -110,6 +110,10 @@ const scoreCard = {
   gameMenu_share_error: 'Condivisione link non disponibile',
   gameMenu_gameId: 'GameId: ',
   gameMenu_copy_error: 'Appunti non disponibili',
+  gameMenu_copyId_button: 'Copia url',
+  gameMenu_shareId_button: 'Condividi url',
+  gameMenu_backToMenu_button: 'Torna al menu principale',
+  gameMenu_gameId_alert: 'Id del gioco copiato',
 }
 
 const victory = {
