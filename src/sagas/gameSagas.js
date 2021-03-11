@@ -31,36 +31,32 @@ export const createGame = async({ player }) => {
 }
 
 export const loadGame = async({ gameId, player }) => {
-  try {
-    const game = await firebase.getCollectionDoc({
-      collectionId: 'games',
-      docId: gameId,
-    })
+  const game = await firebase.getCollectionDoc({
+    collectionId: 'games',
+    docId: gameId,
+  })
 
-    // TODO: check valid game
+  if (game?.players?.[player.playerId] != null)
+    return true
 
-    if (game?.players?.[player.playerId] != null)
-      return gameId
+  if (game.status === 'finished')
+    throw new Error('This game is already finished and you weren\'t a player')
 
-    if (game.settings?.players <= Object.keys(game.players ?? {}))
-      throw new Error('Players limit reached')
+  if (Object.keys(game.players ?? {}).length >= game.settings?.players)
+    throw new Error('Players limit reached')
 
-    const newGame = gameModel({
-      ...game,
-      players: { ...game.players, [player.playerId]: player },
-    })
+  const newGame = gameModel({
+    ...game,
+    players: { ...game.players, [player.playerId]: player },
+  })
 
-    await firebase.setCollectionDoc({
-      collectionId: 'games',
-      docId: gameId,
-      data: newGame,
-    })
+  await firebase.setCollectionDoc({
+    collectionId: 'games',
+    docId: gameId,
+    data: newGame,
+  })
 
-    return gameId
-  } catch (error) {
-    console.error(error)
-    return null
-  }
+  return true
 }
 
 export const saveGame = async({ game }) => {

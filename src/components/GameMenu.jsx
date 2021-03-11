@@ -1,16 +1,16 @@
 import React from 'react'
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Toolbar, Typography } from '@material-ui/core'
-import { Assignment, Close, Menu, Share } from '@material-ui/icons'
+import { Assignment, Close, Menu, MenuOpen, Share } from '@material-ui/icons'
 
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
 import translator from 'utility/translator'
+import { useResetApp } from 'hooks/routerHooks'
 
 const GameMenu = () => {
-  const location = useHistory()
-  const { user, game } = useSelector(state => state)
+  const { game } = useSelector(state => state)
   const [open, setOpen] = React.useState(false)
+  const resetApp = useResetApp()
 
   const title = translator.fromLabel('gameMenu_share_title')
   const text = translator.fromLabel('gameMenu_share_text')
@@ -45,6 +45,7 @@ const GameMenu = () => {
           </Toolbar>
         </DialogContent>
         <DialogActions>
+          <Button variant='contained' onClick={resetApp}><MenuOpen /></Button>
           <Button variant='contained' onClick={onClose}><Close /></Button>
         </DialogActions>
       </Dialog>

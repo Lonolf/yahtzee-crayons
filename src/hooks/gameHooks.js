@@ -45,11 +45,16 @@ export const useLoadGame = () => {
 
   return async({ gameId, user } = {}) => {
     dispatch({ type: actions.START_LOADING, payload: 'loadGame' })
-    const player = playerModel(user || stateUser)
+    try {
+      const player = playerModel(user || stateUser)
 
-    await loadGame({ gameId, player })
-    if (gameId != null)
-      watchGameHook({ gameId, user: user || stateUser })
+      const loaded = await loadGame({ gameId, player })
+
+      if (loaded)
+        watchGameHook({ gameId, user: user || stateUser })
+    } catch (error) {
+      dispatch({ type: actions.REDUCE_CREATE_ERROR, payload: error })
+    }
 
     dispatch({ type: actions.STOP_LOADING, payload: 'loadGame' })
   }
@@ -68,11 +73,20 @@ export const useSaveGame = () => {
 export const useCheckFinishedGame = () => {
   const stateGame = useSelector(state => state.game)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   return async({ game } = {}) => {
-    const finished = checkGameFinished({ game: game ?? stateGame })
+    const finished = (game ?? stateGame).status === 'finished' || checkGameFinished({ game: game ?? stateGame })
 
-    if (finished)
+    if (finished) {
+      const savedGame = await saveGame({
+        game: {
+          ...(game ?? stateGame),
+          status: 'finished',
+        },
+      })
+      dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
       history.push('/victory')
+    }
   }
 }
