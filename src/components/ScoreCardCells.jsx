@@ -24,6 +24,7 @@ const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBl
           style={{ width: 50, borderBottom: 0 }}
           inputProps={{ style: { textAlign: 'center' } }}
           disabled={disabled && !focused}
+          color='secondary'
         />
       </EmptyCell>
     )
@@ -36,7 +37,7 @@ const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBl
           checked={checked}
           indeterminate={throwCell}
           name={setId + row.label + row.points}
-          color='primary'
+          color='secondary'
           size='small'
           disabled={disabled}
         />

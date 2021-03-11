@@ -2,7 +2,7 @@
 import React from 'react'
 
 import EmptyCell from 'styleComponents/EmptyCell'
-import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
 import translator from 'utility/translator'
 import { Close, OpenInNew } from '@material-ui/icons'
 
@@ -16,7 +16,7 @@ const LabelCell = ({ row }) => {
       <EmptyCell padded flexGrow={3} onClick={onOpen}>
         {translator.fromLabel(`labelCell_${row.label}_label`)}
         <div style={{ flex: '1 1 10px' }} />
-        <IconButton size='small'><OpenInNew color='disabled' /></IconButton>
+        <OpenInNew color='disabled' />
       </EmptyCell>
       {open ? <RuleDialog row={row} onClose={onClose} /> : null}
     </>

@@ -11,7 +11,7 @@ const theme = createMuiTheme({
     },
     MuiContainer: {
       root: {
-        padding: 24,
+        padding: 8,
       },
     },
     MuiDialog: {
@@ -30,6 +30,7 @@ const theme = createMuiTheme({
         width: '100%',
         justifyContent: 'space-between',
         alignItems: 'stretch',
+        textAlign: 'center',
       },
     },
   },
@@ -38,6 +39,10 @@ const theme = createMuiTheme({
       variant: 'dense',
       disableGutters: true,
     },
+  },
+  palette: {
+    primary: { main: '#006064' },
+    secondary: { main: '#795548' },
   },
 })
 

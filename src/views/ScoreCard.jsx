@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
-import { List } from '@material-ui/core'
+import { List, Paper, Toolbar, Typography } from '@material-ui/core'
 import { useSaveGame, useCheckFinishedGame } from 'hooks/gameHooks'
 import { rows } from 'config/gameConfig'
 import { useParams } from 'react-router'
@@ -34,7 +34,8 @@ const ScoreCard = () => {
   const currentSetId = currentSets[playerId]
 
   return (
-    <>
+    <Paper style={{ padding: 16 }}>
+      <Toolbar><Typography color='primary' variant='h5'>Yahtzee!</Typography></Toolbar>
       <List style={{ border: '0.5px solid black', padding: 0 }}>
         {rows.map(row => (
           <Line
@@ -50,7 +51,7 @@ const ScoreCard = () => {
         ))}
       </List>
       <Totals game={game} playerId={playerId} />
-    </>
+    </Paper>
   )
 }
 

@@ -20,8 +20,11 @@ const MenuBar = () => {
       <AppBar>
         <Toolbar style={{ alignItems: 'center', justifyContent: 'space-evenly' }}>
           <GameMenu />
-          <Typography color={playerId === user.userId ? 'secondary' : 'initial'}>{game.players?.[playerId]?.playerName ?? ''}</Typography>
-          <Button variant='outlined' disabled={disabledButton} onClick={changePlayer}>
+          <Typography variant='h6'>
+            {game.players?.[playerId]?.playerName ?? ''}
+            {playerId === user.userId ? '*' : ''}
+          </Typography>
+          <Button variant='contained' color='secondary' disabled={disabledButton} onClick={changePlayer}>
             <SwapHoriz />
           </Button>
         </Toolbar>

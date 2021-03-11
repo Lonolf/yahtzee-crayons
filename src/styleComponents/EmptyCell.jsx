@@ -1,15 +1,17 @@
 import { styled } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
-const EmptyCell = styled(Box)(({ flexGrow = 1, padded = false, total = false, theme }) => ({
+const EmptyCell = styled(Button)(({ flexGrow = 1, padded = false, total = false, theme }) => ({
   border: `${total ? '2' : '1'}px solid ${theme.palette.primary.main}`,
+  borderRadius: 0,
   flex: `${flexGrow} 0 50px`,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  color: total ? theme.palette.primary.main : 'inherit',
-  fontWeight: total ? 'bold' : 'inherit',
-  padding: padded ? `0px ${theme.spacing(2)}px` : 0,
+  fontWeight: total ? 'bolder' : 'inherit',
+  fontSize: total ? 'larger' : 'inherit',
+  padding: padded ? `0 ${theme.spacing(2)}px` : 0,
+  color: theme.palette.secondary.main,
 }))
 
 export default EmptyCell

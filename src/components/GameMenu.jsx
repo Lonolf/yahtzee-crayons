@@ -31,7 +31,7 @@ const GameMenu = () => {
 
   return (
     <>
-      <Button variant='outlined' onClick={onOpen}><Menu /></Button>
+      <Button variant='contained' color='secondary' onClick={onOpen}><Menu /></Button>
       <Dialog PaperProps={{ style: { padding: '16px 0px' } }} open={open}>
         <DialogTitle>{translator.fromLabel('gameMenu_title')}</DialogTitle>
         <DialogContent>
