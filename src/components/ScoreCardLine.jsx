@@ -17,7 +17,7 @@ export const Line = ({ game, row, playerId, setValue, onBlur, disabled = false, 
             <ScoreCell
               playerId={playerId}
               setId={setId}
-              label={row.label}
+              row={row}
               value={game?.players?.[playerId]?.playerScores?.[setId]?.[row.label]}
               setValue={setValue}
               onBlur={onBlur}
