@@ -58,6 +58,22 @@ const generic = {
 const commons = {
 }
 
+const labelCell = {
+  labelCell_aces_label: 'Assi',
+  labelCell_twos_label: 'Due',
+  labelCell_threes_label: 'Tre',
+  labelCell_fours_label: 'Quattro',
+  labelCell_fives_label: 'Cinque',
+  labelCell_sixes_label: 'Sei',
+  labelCell_threeOf_label: 'Tris',
+  labelCell_fourOf_label: 'Poker',
+  labelCell_fullHouse_label: 'Full house',
+  labelCell_smSt_label: 'Scala di 4',
+  labelCell_lgSt_label: 'Scala di 5',
+  labelCell_free_label: 'Somma',
+  labelCell_yahtzee_label: 'Yahtzee',
+}
+
 const login = {
   login_google_button: 'Acced con Google',
   login_register_switch: 'Nuovo utente',
@@ -97,6 +113,7 @@ export const italian = {
   ...dates,
   ...generic,
   ...commons,
+  ...labelCell,
   ...login,
   ...mainMenu,
   ...scoreCard,

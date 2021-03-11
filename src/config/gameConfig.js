@@ -4,7 +4,7 @@ export const rows = [
   { label: 'threes' },
   { label: 'fours' },
   { label: 'fives' },
-  { label: 'six' },
+  { label: 'sixes' },
   { label: 'threeOf' },
   { label: 'fourOf' },
   { label: 'fullHouse', points: 25 },

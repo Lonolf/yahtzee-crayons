@@ -1,18 +1,8 @@
 import React from 'react'
-import { styled } from '@material-ui/core/styles'
-import { TextField, Box, FormControlLabel, Checkbox, Toolbar } from '@material-ui/core'
+import { TextField, Checkbox } from '@material-ui/core'
+import EmptyCell from 'styleComponents/EmptyCell'
 
-export const EmptyCell = styled(Box)(({ total = false, theme }) => ({
-  border: `${total ? '2' : '1'}px solid ${theme.palette.primary.main}`,
-  flex: '1 0 50px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: total ? theme.palette.primary.main : 'inherit',
-  fontWeight: total ? 'bold' : 'inherit',
-}))
-
-export const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBlur = () => {}, disabled = false }) => {
+const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {}, onBlur = () => {}, disabled = false }) => {
   const [focused, setFocused] = React.useState(false)
   const onChange = value =>
     setValue({ playerId, setId, label: row.label, value })
@@ -22,38 +12,40 @@ export const ScoreCell = ({ playerId, setId, row, value = '', setValue = () => {
 
   if (row.points == null) {
     return (
-      <TextField
-        id={setId + row.label}
-        value={String(value)}
-        onChange={event => onChange(Number(event.target.value.replace(/\D/, '') || 0))}
-        onFocus={() => setFocused(true)}
-        onBlur={() => { onBlur(); setFocused(false) }}
-        onKeyDown={onKeyDown}
-        type='number'
-        style={{ width: 50, borderBottom: 0 }}
-        inputProps={{ style: { textAlign: 'center' } }}
-        disabled={disabled && !focused}
-      />
+      <EmptyCell>
+        <TextField
+          id={setId + row.label}
+          value={String(value)}
+          onChange={event => onChange(Number(event.target.value.replace(/\D/, '') || 0))}
+          onFocus={() => setFocused(true)}
+          onBlur={() => { onBlur(); setFocused(false) }}
+          onKeyDown={onKeyDown}
+          type='number'
+          style={{ width: 50, borderBottom: 0 }}
+          inputProps={{ style: { textAlign: 'center' } }}
+          disabled={disabled && !focused}
+        />
+      </EmptyCell>
     )
   } else {
     const checked = value === row.points
     const throwCell = value === 0
     return (
-      <Toolbar disableGutters style={{ justifyContent: 'flex-start', paddingLeft: 16 }}>
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={checked}
-              indeterminate={throwCell}
-              onChange={() => onChange(value == null ? 0 : throwCell ? row.points : null)}
-              name={setId + row.label + row.points}
-              color='primary'
-            />
-          )}
-          label={value}
+      <EmptyCell onClick={() => onChange(value == null ? 0 : throwCell ? row.points : null)}>
+        <Checkbox
+          checked={checked}
+          indeterminate={throwCell}
+          name={setId + row.label + row.points}
+          color='primary'
+          size='small'
           disabled={disabled}
         />
-      </Toolbar>
+        <div style={{ flex: 1 }}>
+          {value}
+        </div>
+      </EmptyCell>
     )
   }
 }
+
+export default ScoreCell
