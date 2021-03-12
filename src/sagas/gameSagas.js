@@ -14,9 +14,12 @@ export const watchGame = async({ gameId, setGame = () => {} }) => {
   }
 }
 
-export const createGame = async({ player }) => {
+export const createGame = async({ player, settings }) => {
   try {
-    const game = gameModel({ players: { [player.playerId]: player } })
+    const game = gameModel({
+      players: { [player.playerId]: player },
+      settings,
+    })
     const gameId = await firebase.addCollectionDoc({
       collectionId: 'games',
       idName: 'gameId',

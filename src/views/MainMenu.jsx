@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useCreateNewGame, useLoadGame } from 'hooks/gameHooks'
 import { useLogout } from 'hooks/userHooks'
+import SettingsManager from 'components/SettingsManager'
 
 const MainMenu = () => {
   const user = useSelector(state => state.user)
@@ -17,6 +18,8 @@ const MainMenu = () => {
       <Typography variant='h5' color='primary'>
         {user.userName ?? user.userEmail}
       </Typography>
+      <Divider />
+      <SettingsManager />
       <Divider />
       <Button
         disabled={!!gameId || !user.userId}

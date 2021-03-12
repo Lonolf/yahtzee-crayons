@@ -5,4 +5,9 @@ export const user = {
   userRole: null,
 }
 
+export const settings = {
+  players: 2,
+  sets: 3,
+}
+
 export const loading = ['autoLogin']

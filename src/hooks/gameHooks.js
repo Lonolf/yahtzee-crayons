@@ -23,14 +23,14 @@ export const useWatchGame = () => {
 }
 
 export const useCreateNewGame = () => {
-  const user = useSelector(state => state.user)
+  const { user, settings } = useSelector(state => state)
   const watchGameHook = useWatchGame()
   const dispatch = useDispatch()
 
   return async() => {
     dispatch({ type: actions.START_LOADING, payload: 'createNewGame' })
     const player = playerModel(user)
-    const gameId = await createGame({ player })
+    const gameId = await createGame({ player, settings })
 
     if (gameId != null)
       watchGameHook({ gameId, user })
@@ -88,16 +88,21 @@ export const useSaveGame = () => {
   return async({ game } = {}) => {
     try {
       const usedGame = game ?? stateGame
-      const finished = usedGame.status === 'finished' || checkGameFinished({ game: usedGame })
-      const savedGame = await saveGame({
-        game: {
-          ...usedGame,
-          status: finished ? 'finished' : usedGame.finished,
-        },
-      })
+      if (usedGame.status === 'finished')
+        return null
+
+      const finished = checkGameFinished({ game: usedGame })
+
       if (finished) {
+        const savedGame = await saveGame({
+          game: {
+            ...usedGame,
+            status: finished ? 'finished' : usedGame.finished,
+          },
+        })
         dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
-        history.push('/victory')
+      } else {
+        await saveGame({ game: usedGame })
       }
     } catch (error) {
       console.error(error)

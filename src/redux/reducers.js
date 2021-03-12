@@ -39,6 +39,13 @@ const loading = produce((draft, { type, payload }) => {
   }
 }, initialState.loading)
 
+const settings = produce((draft, { type, payload }) => {
+  switch (type) {
+    case actions.REDUCE_EDIT_SETTINGS:
+      return ({ ...draft, ...payload })
+  }
+}, initialState.settings)
+
 const user = produce((draft, { type, payload }) => {
   switch (type) {
     case actions.REDUCE_CREATE_USER:
@@ -52,6 +59,7 @@ const rootReducer = combineReducers({
   error,
   game,
   loading,
+  settings,
   user,
 })
 

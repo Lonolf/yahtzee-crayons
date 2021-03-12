@@ -41,6 +41,7 @@ const dates = {
   Oct: 'Ott',
   Nov: 'Nov',
   Dec: 'Dic',
+  datetime_string: 'HH:mm dd/MM/yyyy',
 }
 
 const toPrice = (price) => {
@@ -109,12 +110,16 @@ const scoreCard = {
   gameMenu_share_text: 'Vieni a fare una partita con me!',
   gameMenu_share_error: 'Condivisione link non disponibile',
   gameMenu_gameId: 'GameId: ',
+  gameMenu_gameStart: 'Inizio: ',
+  gameMenu_endDate: 'Fine: ',
   gameMenu_copy_error: 'Appunti non disponibili',
   gameMenu_copyId_button: 'Copia id',
   gameMenu_shareId_button: 'Invita',
   gameMenu_backToMenu_button: 'Torna al menu principale',
   gameMenu_gameId_alert: 'Id del gioco copiato',
   gameMenu_noSleep_button: 'Mantieni lo schermo acceso',
+  gameMenu_gameStatus_started: 'Status: iniziato',
+  gameMenu_gameStatus_finished: 'Status: finito',
 }
 
 const victory = {
@@ -122,6 +127,13 @@ const victory = {
   victory_winner_text: 'Il giocare {{playerName}} ha vinto conquistando {{sets}} sets con un totale di {{total}} punti',
   victory_draw_text: 'La partita è finita in pareggio. Complimenti a tutti i giocatori!',
   victory_mainMenu: 'Torna al menù principale',
+}
+
+const settings = {
+  settings_button: 'Game Settings',
+  settings_title: 'Settings',
+  settings_players: 'Giocatori',
+  settings_sets: 'Sets',
 }
 
 export const italian = {
@@ -137,4 +149,5 @@ export const italian = {
   ...mainMenu,
   ...scoreCard,
   ...victory,
+  ...settings,
 }

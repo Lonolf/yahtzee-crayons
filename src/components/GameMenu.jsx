@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useResetApp } from 'hooks/routerHooks'
 import NoSleep from 'nosleep.js'
+import { fromUnixTime, format } from 'date-fns'
 const noSleep = new NoSleep()
 
 const GameMenu = () => {
@@ -46,6 +47,7 @@ const GameMenu = () => {
       alert(translator.fromLabel('gameMenu_copy_error'))
     }
   }
+  console.log(new Intl.DateTimeFormat())
 
   return (
     <>
@@ -56,17 +58,33 @@ const GameMenu = () => {
             {translator.fromLabel('gameMenu_title')}
           </DialogTitle>
           <div style={{ flexGrow: '1 0 10px' }} />
-          <IconButton style={{ paddingRight: 24 }} onClick={onClose}><Close /></IconButton>
+          <IconButton style={{ marginRight: 24 }} onClick={onClose}><Close /></IconButton>
         </Toolbar>
         <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography color='secondary' variant='subtitle1'>{translator.fromLabel('gameMenu_gameId') + game.gameId}</Typography>
+          <Typography color='secondary' variant='subtitle1'>
+            {translator.fromLabel(`gameMenu_gameStatus_${game.status}`)}
+          </Typography>
+          <Typography color='secondary' variant='subtitle1'>
+            {translator.fromLabel('gameMenu_gameStart') +
+              format(fromUnixTime(game.startDate?.seconds), translator.fromLabel('datetime_string'))}
+          </Typography>
+          {game?.endDate?.seconds
+            ? (
+              <Typography color='secondary' variant='subtitle1'>
+                {translator.fromLabel('gameMenu_gameEnd') +
+                format(fromUnixTime(game.endDate?.seconds), translator.fromLabel('datetime_string'))}
+              </Typography>
+              ) : null}
+          <Typography color='secondary' variant='subtitle1'>
+            {translator.fromLabel('gameMenu_gameId') + game.gameId}
+          </Typography>
           <div style={{ height }}>
             {idCopied
               ? <Typography color='error' variant='subtitle1'>{translator.fromLabel('gameMenu_gameId_alert')}</Typography>
               : null}
           </div>
           <Toolbar>
-            <Button disabled={disabled} color='primary' variant='contained' onClick={onCopy}>
+            <Button color='primary' variant='contained' onClick={onCopy}>
               {translator.fromLabel('gameMenu_copyId_button')}
             </Button>
             <Button disabled={disabled} color='primary' variant='contained' onClick={onShare}>

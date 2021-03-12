@@ -24,7 +24,7 @@ const Victory = () => {
           {translator.fromLabel('victory_title')}
         </DialogTitle>
         <div style={{ flexGrow: '1 0 10px' }} />
-        <IconButton style={{ paddingRight: 24 }} onClick={() => setOpen(false)}><Close /></IconButton>
+        <IconButton style={{ marginRight: 24 }} onClick={() => setOpen(false)}><Close /></IconButton>
       </Toolbar>
       <DialogContentText>
         {playerId === 'draw'
