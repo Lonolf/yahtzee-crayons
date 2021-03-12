@@ -1,11 +1,20 @@
 import React from 'react'
 import { TextField, Checkbox } from '@material-ui/core'
 import EmptyCell from 'styleComponents/EmptyCell'
+import { useUpdateScore, useSaveGame } from 'hooks/gameHooks'
 
-const ScoreCell = ({ playerId, setId, row, value, setValue = () => {}, onBlur = () => {}, disabled = false }) => {
-  const [focused, setFocused] = React.useState(false)
+const ScoreCell = ({ playerId, setId, row, value, disabled = false }) => {
+  const updateScore = useUpdateScore()
+  const saveGame = useSaveGame()
+
   const onChange = value =>
-    setValue({ playerId, setId, label: row.label, value })
+    updateScore({ playerId, setId, label: row.label, value })
+
+  const onSelect = value => {
+    updateScore({ playerId, setId, label: row.label, value, save: true })
+  }
+
+  const onBlur = () => saveGame()
 
   const onKeyDown = event => event.keyCode === 13
     ? document.activeElement.blur() : null
@@ -17,13 +26,12 @@ const ScoreCell = ({ playerId, setId, row, value, setValue = () => {}, onBlur = 
           id={setId + row.label}
           value={String(value ?? '')}
           onChange={event => onChange(Number(event.target.value.replace(/\D/, '') || 0))}
-          onFocus={() => setFocused(true)}
-          onBlur={() => { onBlur(); setFocused(false) }}
           onKeyDown={onKeyDown}
+          onBlur={onBlur}
           type='number'
           style={{ width: 50, borderBottom: 0 }}
           inputProps={{ style: { textAlign: 'center' } }}
-          disabled={disabled && !focused}
+          disabled={disabled}
           color='secondary'
         />
       </EmptyCell>
@@ -32,7 +40,7 @@ const ScoreCell = ({ playerId, setId, row, value, setValue = () => {}, onBlur = 
     const checked = value === row.points
     const throwCell = value === 0
     return (
-      <EmptyCell onClick={() => onChange(value == null ? 0 : throwCell ? row.points : null)}>
+      <EmptyCell onClick={() => onSelect(value == null ? 0 : throwCell ? row.points : null)}>
         <Checkbox
           checked={checked}
           indeterminate={throwCell}

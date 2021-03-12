@@ -20,6 +20,9 @@ const theme = createMuiTheme({
       paper: {
         padding: 24,
       },
+      root: {
+        backgroundColor: 'rgba(115, 139, 140, 0.1)',
+      },
     },
     MuiDivider: {
       root: {

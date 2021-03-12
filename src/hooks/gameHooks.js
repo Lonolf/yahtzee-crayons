@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { useHistory, useLocation } from 'react-router-dom'
 import { checkGameFinished } from 'config/gameConfig'
+import produce from 'immer'
 
 export const useWatchGame = () => {
   const dispatch = useDispatch()
@@ -60,33 +61,46 @@ export const useLoadGame = () => {
   }
 }
 
-export const useSaveGame = () => {
+export const useUpdateScore = () => {
   const game = useSelector(state => state.game)
+  const saveGame = useSaveGame()
   const dispatch = useDispatch()
 
-  return async() => {
-    const savedGame = await saveGame({ game })
-    dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
+  return async({ playerId, setId, label, value, save = false }) => {
+    const payload = produce(game, draft => {
+      if (draft.players[playerId].playerScores[setId] == null)
+        draft.players[playerId].playerScores[setId] = {}
+
+      draft.players[playerId].playerScores[setId][label] = value
+    })
+
+    if (save)
+      saveGame({ game: payload })
+    else
+      dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
   }
 }
 
-export const useCheckFinishedGame = () => {
-  const stateGame = useSelector(state => state.game)
-  const history = useHistory()
+export const useSaveGame = () => {
   const dispatch = useDispatch()
+  const stateGame = useSelector(state => state.game)
 
   return async({ game } = {}) => {
-    const finished = (game ?? stateGame).status === 'finished' || checkGameFinished({ game: game ?? stateGame })
-
-    if (finished) {
+    try {
+      const usedGame = game ?? stateGame
+      const finished = usedGame.status === 'finished' || checkGameFinished({ game: usedGame })
       const savedGame = await saveGame({
         game: {
-          ...(game ?? stateGame),
-          status: 'finished',
+          ...usedGame,
+          status: finished ? 'finished' : usedGame.finished,
         },
       })
-      dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
-      history.push('/victory')
+      if (finished) {
+        dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
+        history.push('/victory')
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }

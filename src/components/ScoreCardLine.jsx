@@ -9,23 +9,26 @@ import translator from 'utility/translator'
 import { getPlayersTotals } from 'redux/selectors'
 import LabelCell from 'components/LabelCell'
 
-export const Line = ({ game, row, playerId, setValue, onBlur, disabled = false, currentSetId }) => {
+export const Line = ({ game, row, playerId, disabledPlayer = false, currentSetId }) => {
   return (
     <Toolbar>
       <LabelCell row={row} />
       {Array.from({ length: game.settings?.sets ?? 1 }, (x, i) => String(i + 1))
-        .map(setId => (
-          <ScoreCell
-            key={row.label + setId}
-            playerId={playerId}
-            setId={setId}
-            row={row}
-            value={game?.players?.[playerId]?.playerScores?.[setId]?.[row.label]}
-            setValue={setValue}
-            onBlur={onBlur}
-            disabled={disabled || currentSetId !== setId}
-          />
-        ),
+        .map(setId => {
+          const disabledCell = disabledPlayer ||
+            Number(currentSetId) < Number(setId) ||
+            game.players[playerId].playerScores[Number(setId) + 1] != null
+          return (
+            <ScoreCell
+              key={row.label + setId}
+              playerId={playerId}
+              setId={setId}
+              row={row}
+              value={game?.players?.[playerId]?.playerScores?.[setId]?.[row.label]}
+              disabled={disabledCell}
+            />
+          )
+        },
         )}
     </Toolbar>
   )

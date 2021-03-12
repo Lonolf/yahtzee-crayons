@@ -23,7 +23,7 @@ const ContentManager = () => {
             <Route path='/game/:playerId?'><MenuBar /></Route>
             <Route exact path='/'><MainMenu /></Route>
             <Route path='/game/:playerId?'><ScoreCard /></Route>
-            <Route path='/victory'><Victory /></Route>
+            <Route path='/game/:playerId?'><Victory /></Route>
           </>
           )}
     </Container>
