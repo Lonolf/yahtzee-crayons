@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useCreateNewGame, useLoadGame } from 'hooks/gameHooks'
 import { useLogout } from 'hooks/userHooks'
+import SettingsManager from 'components/SettingsManager'
 
 const MainMenu = () => {
   const user = useSelector(state => state.user)
@@ -14,14 +15,17 @@ const MainMenu = () => {
 
   return (
     <Dialog open>
-      <Typography>
+      <Typography variant='h5' color='primary'>
         {user.userName ?? user.userEmail}
       </Typography>
+      <Divider />
+      <SettingsManager />
       <Divider />
       <Button
         disabled={!!gameId || !user.userId}
         variant={!gameId ? 'contained' : 'outlined'}
         onClick={createNewGame}
+        color='primary'
       >
         {translator.fromLabel('mainMenu_newGame')}
       </Button>
@@ -32,12 +36,14 @@ const MainMenu = () => {
         onChange={event => setGameId(event.target.value)}
         label={translator.fromLabel('mainMenu_gameId_label')}
         variant='outlined'
+        color='primary'
       />
       <div style={{ height: 16 }} />
       <Button
         disabled={!gameId || !user.userId}
         variant={gameId ? 'contained' : 'outlined'}
         onClick={() => loadGame({ gameId })}
+        color='primary'
       >
         {translator.fromLabel('mainMenu_loadGame')}
       </Button>
@@ -45,6 +51,7 @@ const MainMenu = () => {
       <Button
         variant='contained'
         onClick={logout}
+        color='secondary'
       >
         {translator.fromLabel('mainMenu_logout')}
       </Button>

@@ -2,6 +2,8 @@ import React from 'react'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
 
+const font = "'Cabin Sketch', sans-serif"
+
 const theme = createMuiTheme({
   overrides: {
     MuiDataGrid: {
@@ -11,12 +13,15 @@ const theme = createMuiTheme({
     },
     MuiContainer: {
       root: {
-        padding: 24,
+        padding: 8,
       },
     },
     MuiDialog: {
       paper: {
         padding: 24,
+      },
+      root: {
+        backgroundColor: 'rgba(115, 139, 140, 0.1)',
       },
     },
     MuiDivider: {
@@ -30,6 +35,7 @@ const theme = createMuiTheme({
         width: '100%',
         justifyContent: 'space-between',
         alignItems: 'stretch',
+        textAlign: 'center',
       },
     },
   },
@@ -37,6 +43,16 @@ const theme = createMuiTheme({
     MuiToolbar: {
       variant: 'dense',
       disableGutters: true,
+    },
+  },
+  palette: {
+    primary: { main: '#006064' },
+    secondary: { main: '#795548' },
+  },
+  typography: {
+    fontFamily: font,
+    button: {
+      textTransform: 'none',
     },
   },
 })

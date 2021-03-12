@@ -27,12 +27,6 @@ const game = produce((draft, { type, payload }) => {
       return payload
     case actions.REDUCE_EDIT_GAME:
       return ({ ...draft, ...payload })
-    case actions.REDUCE_EDIT_SCORE:
-      if (draft.players[payload.playerId].playerScores[payload.setId] == null)
-        draft.players[payload.playerId].playerScores[payload.setId] = {}
-
-      draft.players[payload.playerId].playerScores[payload.setId][payload.label] = payload.value
-      return draft
   }
 }, {})
 
@@ -44,6 +38,13 @@ const loading = produce((draft, { type, payload }) => {
       return draft.filter(value => value !== payload)
   }
 }, initialState.loading)
+
+const settings = produce((draft, { type, payload }) => {
+  switch (type) {
+    case actions.REDUCE_EDIT_SETTINGS:
+      return ({ ...draft, ...payload })
+  }
+}, initialState.settings)
 
 const user = produce((draft, { type, payload }) => {
   switch (type) {
@@ -58,6 +59,7 @@ const rootReducer = combineReducers({
   error,
   game,
   loading,
+  settings,
   user,
 })
 

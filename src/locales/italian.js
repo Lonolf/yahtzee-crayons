@@ -41,6 +41,7 @@ const dates = {
   Oct: 'Ott',
   Nov: 'Nov',
   Dec: 'Dic',
+  datetime_string: 'HH:mm dd/MM/yyyy',
 }
 
 const toPrice = (price) => {
@@ -51,11 +52,40 @@ const generic = {
   generic_loading: 'Caricamento in corso',
   generic_email: 'Email',
   generic_password: 'Password',
-  generic_Name: 'Nome',
+  generic_name: 'Nome',
   generic_confirm: 'Conferma',
 }
 
 const commons = {
+}
+
+const labelCell = {
+  labelCell_aces_label: 'Assi',
+  labelCell_twos_label: 'Due',
+  labelCell_threes_label: 'Tre',
+  labelCell_fours_label: 'Quattro',
+  labelCell_fives_label: 'Cinque',
+  labelCell_sixes_label: 'Sei',
+  labelCell_threeOf_label: 'Tris',
+  labelCell_fourOf_label: 'Poker',
+  labelCell_fullHouse_label: 'Full house',
+  labelCell_smSt_label: 'Scala di 4',
+  labelCell_lgSt_label: 'Scala di 5',
+  labelCell_free_label: 'Somma',
+  labelCell_yahtzee_label: 'Yahtzee',
+  labelCell_aces_rule: 'Somma il valore dei dadi con punteggio pari a uno',
+  labelCell_twos_rule: 'Somma il valore dei dadi con punteggio pari a due',
+  labelCell_threes_rule: 'Somma il valore dei dadi con punteggio pari a tre',
+  labelCell_fours_rule: 'Somma il valore dei dadi con punteggio pari a quattro',
+  labelCell_fives_rule: 'Somma il valore dei dadi con punteggio pari a cinque',
+  labelCell_sixes_rule: 'Somma il valore dei dadi con punteggio pari a sei',
+  labelCell_threeOf_rule: 'Solo se è presente un tris di dadi uguali, somma il valore di TUTTI i dadi',
+  labelCell_fourOf_rule: 'Solo se sono presenti quattro dadi uguali, somma il valore di TUTTI i dadi',
+  labelCell_fullHouse_rule: '25 punti se tra i dadi c\'è una coppia e un tris di dadi',
+  labelCell_smSt_rule: '30 punti se tra i dadi c\'è scala di quattro dadi consecutivi',
+  labelCell_lgSt_rule: '40 punti se tra i dadi c\'è scala di cinque dadi consecutivi',
+  labelCell_free_rule: 'Somma liberamente il valore dei dadi',
+  labelCell_yahtzee_rule: 'Yahtzee! Cinque dadi uguali',
 }
 
 const login = {
@@ -75,12 +105,35 @@ const mainMenu = {
 
 const scoreCard = {
   scoreCard_totals_title: 'Totali',
+  gameMenu_title: 'Menù di gioco',
+  gameMenu_share_title: 'Url',
+  gameMenu_share_text: 'Vieni a fare una partita con me!',
+  gameMenu_share_error: 'Condivisione link non disponibile',
+  gameMenu_gameId: 'GameId: ',
+  gameMenu_gameStart: 'Inizio: ',
+  gameMenu_endDate: 'Fine: ',
+  gameMenu_copy_error: 'Appunti non disponibili',
+  gameMenu_copyId_button: 'Copia id',
+  gameMenu_shareId_button: 'Invita',
+  gameMenu_backToMenu_button: 'Torna al menu principale',
+  gameMenu_gameId_alert: 'Id del gioco copiato',
+  gameMenu_noSleep_button: 'Mantieni lo schermo acceso',
+  gameMenu_gameStatus_started: 'Status: iniziato',
+  gameMenu_gameStatus_finished: 'Status: finito',
 }
 
 const victory = {
   victory_title: 'Vittoria!',
   victory_winner_text: 'Il giocare {{playerName}} ha vinto conquistando {{sets}} sets con un totale di {{total}} punti',
   victory_draw_text: 'La partita è finita in pareggio. Complimenti a tutti i giocatori!',
+  victory_mainMenu: 'Torna al menù principale',
+}
+
+const settings = {
+  settings_button: 'Game Settings',
+  settings_title: 'Settings',
+  settings_players: 'Giocatori',
+  settings_sets: 'Sets',
 }
 
 export const italian = {
@@ -91,8 +144,10 @@ export const italian = {
   ...dates,
   ...generic,
   ...commons,
+  ...labelCell,
   ...login,
   ...mainMenu,
   ...scoreCard,
   ...victory,
+  ...settings,
 }

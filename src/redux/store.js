@@ -5,7 +5,7 @@ const store = createStore(
   rootReducer,
   process.env.REACT_APP_ENV !== 'production'
     ? window?.__REDUX_DEVTOOLS_EXTENSION__?.()
-    : null,
+    : props => props,
 )
 
 const disableDevTools = () => {

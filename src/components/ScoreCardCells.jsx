@@ -1,33 +1,59 @@
 import React from 'react'
-import { styled } from '@material-ui/core/styles'
-import { TextField, Box } from '@material-ui/core'
+import { TextField, Checkbox } from '@material-ui/core'
+import EmptyCell from 'styleComponents/EmptyCell'
+import { useUpdateScore } from 'hooks/gameHooks'
 
-export const EmptyCell = styled(Box)(({ total = false, theme }) => ({
-  border: `${total ? '2' : '1'}px solid ${theme.palette.primary.main}`,
-  flex: '1 0 50px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: total ? theme.palette.primary.main : 'inherit',
-  fontWeight: total ? 'bold' : 'inherit',
-}))
+const ScoreCell = ({ playerId, setId, row, value, disabled = false }) => {
+  const updateScore = useUpdateScore()
 
-export const ScoreCell = ({ playerId, setId, label, value = '', setValue = () => {}, onBlur = () => {}, disabled = false }) => {
-  const [focused, setFocused] = React.useState(false)
-  const onChange = event =>
-    setValue({ playerId, setId, label, value: Number(event.target.value.replace(/\D/, '') || 0) })
+  const onChange = value =>
+    updateScore({ playerId, setId, label: row.label, value })
 
-  return (
-    <TextField
-      id={label}
-      value={String(value)}
-      onChange={onChange}
-      onFocus={() => setFocused(true)}
-      onBlur={() => { onBlur(); setFocused(false) }}
-      type='number'
-      style={{ width: 50, borderBottom: 0 }}
-      inputProps={{ style: { textAlign: 'center' } }}
-      disabled={disabled && !focused}
-    />
-  )
+  const onSelect = value => {
+    updateScore({ playerId, setId, label: row.label, value, save: true })
+  }
+
+  const onBlur = () => updateScore({ playerId, setId, label: row.label, value, save: true })
+
+  const onKeyDown = event => event.keyCode === 13
+    ? document.activeElement.blur() : null
+
+  if (row.points == null) {
+    return (
+      <EmptyCell>
+        <TextField
+          id={setId + row.label}
+          value={String(value ?? '')}
+          onChange={event => onChange(Number(event.target.value.replace(/\D/, '') || 0))}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+          type='number'
+          style={{ width: 50, borderBottom: 0 }}
+          inputProps={{ style: { textAlign: 'center' } }}
+          disabled={disabled}
+          color='secondary'
+        />
+      </EmptyCell>
+    )
+  } else {
+    const checked = value === row.points
+    const throwCell = value === 0
+    return (
+      <EmptyCell onClick={() => onSelect(value == null ? 0 : throwCell ? row.points : null)}>
+        <Checkbox
+          checked={checked}
+          indeterminate={throwCell}
+          name={setId + row.label + row.points}
+          color='secondary'
+          size='small'
+          disabled={disabled}
+        />
+        <div style={{ flex: 1 }}>
+          {value}
+        </div>
+      </EmptyCell>
+    )
+  }
 }
+
+export default ScoreCell

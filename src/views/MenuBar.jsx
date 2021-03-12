@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { SwapHoriz } from '@material-ui/icons'
 import { useChangePlayer } from 'hooks/playersHooks'
 import { useParams } from 'react-router'
+import GameMenu from 'components/GameMenu'
 
 const MenuBar = () => {
   const { user, game } = useSelector(state => state)
@@ -18,9 +19,12 @@ const MenuBar = () => {
     <>
       <AppBar>
         <Toolbar style={{ alignItems: 'center', justifyContent: 'space-evenly' }}>
-          <div style={{ flex: '0 0 50px' }} />
-          <Typography color={playerId === user.userId ? 'secondary' : 'initial'}>{game.players?.[playerId]?.playerName ?? ''}</Typography>
-          <Button variant='outlined' disabled={disabledButton} onClick={changePlayer}>
+          <GameMenu />
+          <Typography variant='h6'>
+            {game.players?.[playerId]?.playerName ?? ''}
+            {playerId === user.userId ? '*' : ''}
+          </Typography>
+          <Button variant='contained' color='secondary' disabled={disabledButton} onClick={changePlayer}>
             <SwapHoriz />
           </Button>
         </Toolbar>

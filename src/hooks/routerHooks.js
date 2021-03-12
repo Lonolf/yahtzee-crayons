@@ -10,9 +10,8 @@ export const useParseUrl = () => {
   const dispatch = useDispatch()
 
   return async({ user = {} } = {}) => {
-    history.replace('/')
-
     if (user.userId != null && location.search.includes('gameId=')) {
+      history.replace('/')
       let gameId = new URLSearchParams(location.search).get('gameId')
       loadGame({ gameId, user })
     }

@@ -1,6 +1,6 @@
 {
   "name": "yahtzee",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -13,6 +13,7 @@
     "date-fns": "^2.19.0",
     "firebase": "^8.2.10",
     "immer": "^8.0.1",
+    "nosleep.js": "^0.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",

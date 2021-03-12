@@ -4,14 +4,14 @@ export const rows = [
   { label: 'threes' },
   { label: 'fours' },
   { label: 'fives' },
-  { label: 'six' },
+  { label: 'sixes' },
   { label: 'threeOf' },
   { label: 'fourOf' },
-  { label: 'fullHouse' },
-  { label: 'smSt' },
-  { label: 'lgSt' },
+  { label: 'fullHouse', points: 25 },
+  { label: 'smSt', points: 30 },
+  { label: 'lgSt', points: 40 },
   { label: 'free' },
-  { label: 'yahtzee' },
+  { label: 'yahtzee', points: 50 },
 ]
 
 export const rowsNumber = rows.length

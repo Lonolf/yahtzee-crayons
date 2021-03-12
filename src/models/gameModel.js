@@ -8,6 +8,8 @@ export const gameModel = ({
   status = 'started',
   settings = { sets: 3, players: 2 },
   winner = null,
+  startDate = null,
+  endDate = null,
 }) => ({
   gameId: gameId ? String(gameId) : null,
   players: Object.values(players)
@@ -18,4 +20,6 @@ export const gameModel = ({
   settings, // TODO: validate settings
   status: statusesList.includes(status) ? status : statusesList[0],
   winner: players[winner] != null ? winner : null,
+  startDate: startDate || new Date(),
+  endDate: endDate || (status === 'finished' ? new Date() : null),
 })
