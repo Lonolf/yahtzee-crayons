@@ -83,3 +83,19 @@ export const saveGame = async({ game }) => {
     return false
   }
 }
+
+export const saveScore = async({ gameId, playerId, playerScores }) => {
+  try {
+    await firebase.updateCollectionDoc({
+      collectionId: 'games',
+      docId: gameId,
+      keyId: `players.${playerId}.playerScores`,
+      data: playerScores,
+    })
+
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}

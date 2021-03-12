@@ -59,3 +59,7 @@ A simple app to keep scores in game of yahtzee.
 - [*] inserire loading 
 - [*] inserire error
 - [*] selettore settings
+
+## BUGS
+- [*] Login + link di invito bug
+- [*] Concorrenza salvataggio dati

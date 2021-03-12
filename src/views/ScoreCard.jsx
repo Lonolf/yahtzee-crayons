@@ -8,16 +8,20 @@ import { useParams } from 'react-router'
 import { getCurrentSets } from 'redux/selectors'
 import { useResetApp } from 'hooks/routerHooks'
 import { Line, Totals } from 'components/ScoreCardLine'
+import { useCheckGame } from 'hooks/gameHooks'
 
 const ScoreCard = () => {
   const { user, game, loading } = useSelector(state => state)
   const playerId = useParams()?.playerId ?? user.userId
   const currentSets = useSelector(getCurrentSets)
   const resetApp = useResetApp()
+  const checkGame = useCheckGame()
 
   React.useEffect(() => {
     if (loading.length === 0 && game.gameId == null)
       resetApp()
+    else if (loading.length === 0 && game.gameId != null)
+      checkGame()
   }, [game, loading])
 
   const disabledPlayer = game.status === 'finished' ||

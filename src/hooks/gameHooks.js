@@ -1,5 +1,5 @@
 import { playerModel } from 'models/playerModel'
-import { createGame, loadGame, watchGame, saveGame } from 'sagas/gameSagas'
+import { createGame, loadGame, watchGame, saveGame, saveScore } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -63,7 +63,6 @@ export const useLoadGame = () => {
 
 export const useUpdateScore = () => {
   const game = useSelector(state => state.game)
-  const saveGame = useSaveGame()
   const dispatch = useDispatch()
 
   return async({ playerId, setId, label, value, save = false }) => {
@@ -75,34 +74,31 @@ export const useUpdateScore = () => {
     })
 
     if (save)
-      saveGame({ game: payload })
-    else
-      dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+      saveScore({ gameId: game.gameId, playerId, playerScores: payload.players[playerId].playerScores })
+
+    dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
   }
 }
 
-export const useSaveGame = () => {
+export const useCheckGame = () => {
   const dispatch = useDispatch()
-  const stateGame = useSelector(state => state.game)
+  const game = useSelector(state => state.game)
 
-  return async({ game } = {}) => {
+  return async() => {
     try {
-      const usedGame = game ?? stateGame
-      if (usedGame.status === 'finished')
+      if (game.status === 'finished')
         return null
 
-      const finished = checkGameFinished({ game: usedGame })
+      const finished = checkGameFinished({ game })
 
       if (finished) {
         const savedGame = await saveGame({
           game: {
-            ...usedGame,
-            status: finished ? 'finished' : usedGame.finished,
+            ...game,
+            status: 'finished',
           },
         })
         dispatch({ type: actions.REDUCE_CREATE_GAME, payload: savedGame })
-      } else {
-        await saveGame({ game: usedGame })
       }
     } catch (error) {
       console.error(error)

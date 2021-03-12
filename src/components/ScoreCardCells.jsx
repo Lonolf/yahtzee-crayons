@@ -1,11 +1,10 @@
 import React from 'react'
 import { TextField, Checkbox } from '@material-ui/core'
 import EmptyCell from 'styleComponents/EmptyCell'
-import { useUpdateScore, useSaveGame } from 'hooks/gameHooks'
+import { useUpdateScore } from 'hooks/gameHooks'
 
 const ScoreCell = ({ playerId, setId, row, value, disabled = false }) => {
   const updateScore = useUpdateScore()
-  const saveGame = useSaveGame()
 
   const onChange = value =>
     updateScore({ playerId, setId, label: row.label, value })
@@ -14,7 +13,7 @@ const ScoreCell = ({ playerId, setId, row, value, disabled = false }) => {
     updateScore({ playerId, setId, label: row.label, value, save: true })
   }
 
-  const onBlur = () => saveGame()
+  const onBlur = () => updateScore({ playerId, setId, label: row.label, value, save: true })
 
   const onKeyDown = event => event.keyCode === 13
     ? document.activeElement.blur() : null
