@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Typography, IconButton, Toolbar, Dialog, DialogTitle, Button, DialogContent, Slider, Divider } from '@material-ui/core'
+import { Typography, IconButton, Toolbar, Dialog, DialogTitle, Button, DialogContent, Slider } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actions from 'redux/actions'
 
