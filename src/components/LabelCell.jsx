@@ -13,7 +13,7 @@ const LabelCell = ({ row }) => {
 
   return (
     <>
-      <EmptyCell padded flexGrow={3} onClick={onOpen}>
+      <EmptyCell padded flexgrow={3} onClick={onOpen}>
         <Typography style={{ textDecoration: 'underline', fontWeight: 700 }}>{translator.fromLabel(`labelCell_${row.label}_label`)}</Typography>
       </EmptyCell>
       {open ? <RuleDialog row={row} onClose={onClose} /> : null}

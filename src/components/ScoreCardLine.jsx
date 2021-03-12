@@ -40,7 +40,7 @@ export const Totals = ({ game, playerId }) => {
 
   return (
     <Toolbar style={{ borderRadius: 5 }}>
-      <EmptyCell flexGrow={3} total='total'>{translator.fromLabel('scoreCard_totals_title')}</EmptyCell>
+      <EmptyCell flexgrow={3} total='total'>{translator.fromLabel('scoreCard_totals_title')}</EmptyCell>
       {Array.from({ length: game.settings?.sets ?? 1 }).map((value, index) =>
         <EmptyCell total='total' key={index}>{totals?.[index + 1] ?? 0}</EmptyCell>)}
     </Toolbar>

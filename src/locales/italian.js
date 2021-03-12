@@ -114,6 +114,7 @@ const scoreCard = {
   gameMenu_shareId_button: 'Invita',
   gameMenu_backToMenu_button: 'Torna al menu principale',
   gameMenu_gameId_alert: 'Id del gioco copiato',
+  gameMenu_noSleep_button: 'Mantieni lo schermo acceso',
 }
 
 const victory = {

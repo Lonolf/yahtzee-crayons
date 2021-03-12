@@ -1,11 +1,13 @@
 import React from 'react'
 
-import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle, Toolbar, Typography, useTheme } from '@material-ui/core'
+import { FormControlLabel, Switch, IconButton, Button, Dialog, DialogContent, DialogTitle, Toolbar, Typography, useTheme } from '@material-ui/core'
 import { Close, Menu } from '@material-ui/icons'
 
 import { useSelector } from 'react-redux'
 import translator from 'utility/translator'
 import { useResetApp } from 'hooks/routerHooks'
+import NoSleep from 'nosleep.js'
+const noSleep = new NoSleep()
 
 const GameMenu = () => {
   const { game } = useSelector(state => state)
@@ -14,6 +16,8 @@ const GameMenu = () => {
   const resetApp = useResetApp()
   const theme = useTheme()
   const height = theme.spacing(4)
+
+  React.useEffect(() => { return () => noSleep?.disable?.() }, [])
 
   const disabled = game.status === 'finished'
 
@@ -73,10 +77,40 @@ const GameMenu = () => {
           <Button color='secondary' variant='contained' onClick={resetApp}>
             {translator.fromLabel('gameMenu_backToMenu_button')}
           </Button>
+          <div style={{ height }} />
+          <NoSleepReact />
         </DialogContent>
         <div style={{ height }} />
       </Dialog>
     </>
+  )
+}
+
+const NoSleepReact = () => {
+  const [enabled, setEnabled] = React.useState(noSleep.isEnabled)
+
+  const onChange = () => {
+    if (noSleep.isEnabled) {
+      noSleep?.disable?.()
+      setEnabled(false)
+    } else {
+      noSleep?.enable?.()
+      setEnabled(true)
+    }
+  }
+
+  return (
+    <FormControlLabel
+      control={(
+        <Switch
+          checked={enabled}
+          onChange={onChange}
+          name='checkedB'
+          color='primary'
+        />
+    )}
+      label={translator.fromLabel('gameMenu_noSleep_button')}
+    />
   )
 }
 
