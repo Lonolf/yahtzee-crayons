@@ -1,5 +1,5 @@
-import { Button, Dialog } from '@material-ui/core'
-import { Casino } from '@material-ui/icons'
+import { IconButton, Toolbar } from '@material-ui/core'
+import { Replay } from '@material-ui/icons'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
@@ -8,21 +8,6 @@ import DiceGraphic from 'styleComponents/DiceGraphic'
 import { throwDice } from 'config/gameboardConfig'
 
 const DiceThrower = () => {
-  const [open, setOpen] = React.useState(false)
-  const onOpen = () => setOpen(true)
-  const onClose = () => setOpen(false)
-
-  return (
-    <>
-      <Button color='primary' size='large' onClick={onOpen}><Casino /></Button>
-      <Dialog onClose={onClose} open={open}>
-        <DiceThrowerDialog />
-      </Dialog>
-    </>
-  )
-}
-
-const DiceThrowerDialog = () => {
   const { dices = [], throws = 0 } = useSelector(state => state.gameboard ?? {})
   const dispatch = useDispatch()
   const [throwing, setThrowing] = React.useState(0)
@@ -33,6 +18,7 @@ const DiceThrowerDialog = () => {
   const throwDices = () => {
     setThrowing(10)
     setGameboard({
+      throwing: true,
       throws: throws + 1,
       dices: dices.map(({ value, fixed, ...dice }) => ({
         ...dice,
@@ -43,9 +29,12 @@ const DiceThrowerDialog = () => {
     })
   }
 
-  useInterval(() => { setThrowing(value => value - 1) },
-    throwing <= 0 ? null : 100,
-  )
+  useInterval(() => {
+    console.log(throwing)
+    setThrowing(value => value - 1)
+    if (throwing <= 1)
+      setGameboard({ throwing: false })
+  }, throwing <= 0 ? null : 100)
 
   const setFixed = index => {
     setGameboard({
@@ -60,19 +49,20 @@ const DiceThrowerDialog = () => {
     (dices.length > 0 && dices.every(dice => dice.fixed))
 
   return (
-    <>
-      {[...dices].sort((a, b) => (a.blocked === b.blocked) ? 0 : a.blocked ? -1 : 1)
+    <Toolbar style={{ alignItems: 'center' }}>
+      <div style={{ flex: '1 0 10px' }} />
+      {[...dices].sort((a, b) => (a.blocked === b.blocked) ? (a.value - b.value) : a.blocked ? -1 : 1)
         .map(dice =>
           <Dice key={dice.index} throwing={throwing} dice={dice} setFixed={setFixed} />)}
-      <Button
-        variant='contained'
-        color='secondary'
+      <IconButton
+        color='primary'
         onClick={() => throwDices()}
         disabled={disabledThrow}
+        size='small'
       >
-        Throw
-      </Button>
-    </>
+        <Replay />
+      </IconButton>
+    </Toolbar>
   )
 }
 

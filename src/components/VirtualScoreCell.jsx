@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import * as actions from 'redux/actions'
 import { generateDices } from 'config/gameboardConfig'
 
-const VirtualScoreCell = ({ gameboard: { dices, throws } = {}, playerId, setId, currentSetId, row, value, disabled = false }) => {
+const VirtualScoreCell = ({ gameboard: { dices, throws, throwing = false } = {}, playerId, setId, currentSetId, row, value, disabled = false }) => {
   const updateScore = useUpdateScore()
   const dispatch = useDispatch()
 
@@ -20,11 +20,11 @@ const VirtualScoreCell = ({ gameboard: { dices, throws } = {}, playerId, setId, 
   }
 
   const tempValue = value ??
-    ((throws > 0 && currentSetId === setId) ? rows[row.label].calcPoints(dices) : '')
+    ((!throwing && throws > 0 && currentSetId === setId) ? rows[row.label].calcPoints(dices) : '')
 
   return (
     <EmptyCell onClick={onClick} disabled={disabled || value != null}>
-      <Typography variant='h4' color={value != null ? 'primary' : 'secondary'}>
+      <Typography variant={value != null ? 'h5' : 'h4'} color={value != null ? 'secondary' : 'primary'}>
         {tempValue}
       </Typography>
     </EmptyCell>

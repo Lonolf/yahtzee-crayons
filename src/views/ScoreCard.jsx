@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { useSelector } from 'react-redux'
-import { List, Paper, Toolbar, Typography } from '@material-ui/core'
+import { List, Paper, Toolbar } from '@material-ui/core'
 import { rowsList } from 'config/gameConfig'
 import { useParams } from 'react-router'
 import { getCurrentSets } from 'redux/selectors'
@@ -36,7 +36,6 @@ const ScoreCard = () => {
   return (
     <Paper style={{ padding: 16 }}>
       <Toolbar>
-        <Typography color='primary' variant='h5'>Yahtzee!</Typography>
         <DiceThrower />
       </Toolbar>
       <List style={{ border: '0.5px solid black', padding: 0 }}>
