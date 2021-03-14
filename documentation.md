@@ -63,8 +63,9 @@ A simple app to keep scores in game of yahtzee.
 - [*] Lanciatore di dadi
 - [*] Dadi automatici
 - [*] Escludere blocked dal sort dei dadi
-- [ ] Turni giocatori
+- [*] Turni giocatori
 - [ ] Dadi spostabili
+- [ ] Aggiungi giocatore locale
 ## BUGS
 - [*] Login + link di invito bug
 - [*] Concorrenza salvataggio dati

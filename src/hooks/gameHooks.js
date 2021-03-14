@@ -1,5 +1,5 @@
 import { playerModel } from 'models/playerModel'
-import { createGame, loadGame, watchGame, saveGame, saveScore } from 'sagas/gameSagas'
+import { createGame, loadGame, watchGame, saveGame } from 'sagas/gameSagas'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -66,22 +66,39 @@ export const useLoadGame = () => {
   }
 }
 
+export const useEndTurn = () => {
+  const stateGame = useSelector(state => state.game)
+  const dispatch = useDispatch()
+
+  return async({ game }) => {
+    const newGame = produce((game ?? stateGame), draft => {
+      draft.playingPlayer++
+      if (draft.playingPlayer >= draft.settings.players)
+        draft.playingPlayer = 0
+    })
+
+    await saveGame({ game: newGame })
+    dispatch({ type: actions.REDUCE_CREATE_GAME, payload: newGame })
+  }
+}
+
 export const useUpdateScore = () => {
   const game = useSelector(state => state.game)
   const dispatch = useDispatch()
+  const endTurn = useEndTurn()
 
-  return async({ playerId, setId, label, value, save = false }) => {
-    const payload = produce(game, draft => {
+  return async({ playerId, setId, label, value, endingTurn = false }) => {
+    const newGame = produce(game, draft => {
       if (draft.players[playerId].playerScores[setId] == null)
         draft.players[playerId].playerScores[setId] = {}
 
       draft.players[playerId].playerScores[setId][label] = value
     })
 
-    if (save)
-      saveScore({ gameId: game.gameId, playerId, playerScores: payload.players[playerId].playerScores })
-
-    dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+    if (endingTurn)
+      endTurn({ game: newGame })
+    else
+      dispatch({ type: actions.REDUCE_CREATE_GAME, payload: newGame })
   }
 }
 

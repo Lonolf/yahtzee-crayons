@@ -138,6 +138,14 @@ const settings = {
   settings_virtualDices: 'Dadi virtuali',
 }
 
+const gameMessage = {
+  gameMessage_gameEnded: 'Partita terminata',
+  gameMessage_waitingNewPlayer: 'In attesa di un nuovo giocatore',
+  gameMessage_goToPlayingPlayer: 'Vai al giocatore di turno',
+  gameMessage_yourTurn: 'É il tuo turno. Gioca!',
+  gameMessage_playingPlayer: 'In attesa della sua mossa...',
+}
+
 export const italian = {
   toPrice,
   locale: 'it',
@@ -152,4 +160,5 @@ export const italian = {
   ...scoreCard,
   ...victory,
   ...settings,
+  ...gameMessage,
 }

@@ -13,7 +13,7 @@ const VirtualScoreCell = ({ gameboard: { dices, throws, throwing = false } = {},
   const dispatch = useDispatch()
 
   const onClick = () => {
-    updateScore({ playerId, setId, label: row.label, value: rows[row.label].calcPoints(dices), save: true })
+    updateScore({ playerId, setId, label: row.label, value: rows[row.label].calcPoints(dices), endingTurn: true })
     dispatch({
       type: actions.REDUCE_EDIT_GAMEBOARD,
       payload: { throws: 0, dices: generateDices() },
