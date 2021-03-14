@@ -9,6 +9,7 @@ import { getCurrentSets } from 'redux/selectors'
 import { useResetApp } from 'hooks/routerHooks'
 import { Line, Totals } from 'components/ScoreCardLine'
 import { useCheckGame } from 'hooks/gameHooks'
+import DiceThrower from 'components/DiceThrower'
 
 const ScoreCard = () => {
   const { user, game, loading } = useSelector(state => state)
@@ -34,7 +35,10 @@ const ScoreCard = () => {
 
   return (
     <Paper style={{ padding: 16 }}>
-      <Toolbar><Typography color='primary' variant='h5'>Yahtzee!</Typography></Toolbar>
+      <Toolbar>
+        <Typography color='primary' variant='h5'>Yahtzee!</Typography>
+        <DiceThrower />
+      </Toolbar>
       <List style={{ border: '0.5px solid black', padding: 0 }}>
         {rows.map(row => (
           <Line

@@ -8,6 +8,7 @@ export const user = {
 export const settings = {
   players: 2,
   sets: 3,
+  maxThrows: 3,
 }
 
 export const loading = ['autoLogin']

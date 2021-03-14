@@ -47,7 +47,6 @@ const GameMenu = () => {
       alert(translator.fromLabel('gameMenu_copy_error'))
     }
   }
-  console.log(new Intl.DateTimeFormat())
 
   return (
     <>
@@ -66,13 +65,13 @@ const GameMenu = () => {
           </Typography>
           <Typography color='secondary' variant='subtitle1'>
             {translator.fromLabel('gameMenu_gameStart') +
-              format(fromUnixTime(game.startDate?.seconds), translator.fromLabel('datetime_string'))}
+              format(fromUnixTime(game.startDate?.seconds ?? 0), translator.fromLabel('datetime_string'))}
           </Typography>
           {game?.endDate?.seconds
             ? (
               <Typography color='secondary' variant='subtitle1'>
                 {translator.fromLabel('gameMenu_gameEnd') +
-                format(fromUnixTime(game.endDate?.seconds), translator.fromLabel('datetime_string'))}
+                format(fromUnixTime(game.endDate?.seconds ?? 0), translator.fromLabel('datetime_string'))}
               </Typography>
               ) : null}
           <Typography color='secondary' variant='subtitle1'>
