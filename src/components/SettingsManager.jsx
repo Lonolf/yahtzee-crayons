@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Typography, IconButton, Toolbar, Dialog, DialogTitle, Button, DialogContent, Slider } from '@material-ui/core'
+import { FormControlLabel, Switch, Typography, IconButton, Toolbar, Dialog, DialogTitle, Button, DialogContent, Slider } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actions from 'redux/actions'
 
@@ -52,6 +52,29 @@ const SettingsManager = () => {
             max={10}
             onChangeCommitted={(event, value) => onChange({ sets: value })}
             color='secondary'
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={settings.virtualDices}
+                onChange={() => onChange({ virtualDices: !settings.virtualDices })}
+                name='virtualDices'
+                color='secondary'
+              />
+            )}
+            label={translator.fromLabel('settings_virtualDices')}
+          />
+          <Typography color='secondary'>{translator.fromLabel('settings_maxThrows')}</Typography>
+          <Slider
+            defaultValue={settings.maxThrows}
+            valueLabelDisplay='auto'
+            step={1}
+            marks
+            min={1}
+            max={10}
+            onChangeCommitted={(event, value) => onChange({ maxThrows: value })}
+            color='secondary'
+            disabled={!settings.virtualDices}
           />
         </DialogContent>
       </Dialog>

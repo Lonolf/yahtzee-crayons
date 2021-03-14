@@ -134,6 +134,8 @@ const settings = {
   settings_title: 'Settings',
   settings_players: 'Giocatori',
   settings_sets: 'Sets',
+  settings_maxThrows: 'Numero di lanci',
+  settings_virtualDices: 'Dadi virtuali',
 }
 
 export const italian = {
