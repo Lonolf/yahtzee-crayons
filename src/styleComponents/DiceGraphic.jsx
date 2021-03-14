@@ -18,10 +18,9 @@ const DiceGraphicStyled = styled(Box)(({ fixed = false, theme }) => {
     alignItems: 'center',
     border: `${fixed ? '2' : '0'}px solid ${color}`,
     borderRadius: 5,
-    height: 40,
-    width: 40,
+    flex: '1 1 25px',
     color,
-    margin: '0px 5px',
+    margin: '0px 2px',
   })
 })
 

@@ -30,7 +30,6 @@ const DiceThrower = () => {
   }
 
   useInterval(() => {
-    console.log(throwing)
     setThrowing(value => value - 1)
     if (throwing <= 1)
       setGameboard({ throwing: false })
@@ -50,15 +49,14 @@ const DiceThrower = () => {
 
   return (
     <Toolbar style={{ alignItems: 'center' }}>
-      <div style={{ flex: '1 0 10px' }} />
-      {[...dices].sort((a, b) => (a.blocked === b.blocked) ? (a.value - b.value) : a.blocked ? -1 : 1)
-        .map(dice =>
-          <Dice key={dice.index} throwing={throwing} dice={dice} setFixed={setFixed} />)}
+      {[...dices].sort((a, b) => a.value - b.value)
+        .map(dice => <Dice key={dice.index} throwing={throwing} dice={dice} setFixed={setFixed} />)}
       <IconButton
         color='primary'
         onClick={() => throwDices()}
         disabled={disabledThrow}
         size='small'
+        style={{ flex: '1 1 25px' }}
       >
         <Replay />
       </IconButton>

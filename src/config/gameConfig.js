@@ -10,14 +10,18 @@ const calcMinimumDicesNumber = ({ dices = [], number = 1 }) =>
 const sumDices = (dices = []) => dices
   .reduce((sum, { value = 0 }) => sum + value, 0)
 
-const calcFullHouse = dices => Object.keys(calcValuesNumber(dices)).length === 2
+const calcFullHouse = dices => {
+  const values = Object.values(calcValuesNumber(dices))
+  return (values[0] === 3 && values[1] === 2) || (values[0] === 2 && values[1] === 3)
+}
 
 const calcStraights = (dices = []) =>
   dices.map(({ value }) => value).sort((a, b) => a - b)
     .reduce((straights, value, index, values) => {
-      values[index - 1] === (value - 1)
-        ? straights[straights.length - 1]++
-        : straights.push(1)
+      if (values[index - 1] === (value - 1))
+        straights[straights.length - 1]++
+      else if (values[index - 1] !== value)
+        straights.push(1)
       return straights
     }, [0])
 

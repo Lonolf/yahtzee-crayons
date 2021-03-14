@@ -3,11 +3,12 @@ import EmptyCell from 'styleComponents/EmptyCell'
 import { useUpdateScore } from 'hooks/gameHooks'
 import { rows } from 'config/gameConfig'
 import { Typography } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as actions from 'redux/actions'
 import { generateDices } from 'config/gameboardConfig'
 
 const VirtualScoreCell = ({ gameboard: { dices, throws, throwing = false } = {}, playerId, setId, currentSetId, row, value, disabled = false }) => {
+  const userId = useSelector(state => state.user?.userId)
   const updateScore = useUpdateScore()
   const dispatch = useDispatch()
 
@@ -20,7 +21,8 @@ const VirtualScoreCell = ({ gameboard: { dices, throws, throwing = false } = {},
   }
 
   const tempValue = value ??
-    ((!throwing && throws > 0 && currentSetId === setId) ? rows[row.label].calcPoints(dices) : '')
+    ((playerId === userId && !throwing && throws > 0 && currentSetId === setId)
+      ? rows[row.label].calcPoints(dices) : '')
 
   return (
     <EmptyCell onClick={onClick} disabled={disabled || value != null}>

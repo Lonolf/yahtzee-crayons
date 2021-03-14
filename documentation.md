@@ -61,7 +61,17 @@ A simple app to keep scores in game of yahtzee.
 - [*] selettore settings
 
 - [*] Lanciatore di dadi
-- [ ] Dadi automatici
+- [*] Dadi automatici
+- [*] Escludere blocked dal sort dei dadi
+- [ ] Turni giocatori
+- [ ] Dadi spostabili
 ## BUGS
 - [*] Login + link di invito bug
 - [*] Concorrenza salvataggio dati
+- [*] Bloccare proposte sul tabellone avversario
+- [*] Errore conto scala 4 (1,2,3,4,2)
+- [*] Errore full house (1,1,1,1,2)
+## VERSIONS
+
+1.0 First playthrough
+1.1.0 Virtual dices
