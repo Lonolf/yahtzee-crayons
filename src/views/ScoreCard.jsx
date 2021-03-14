@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 import { List, Paper, Toolbar, Typography } from '@material-ui/core'
-import { rows } from 'config/gameConfig'
+import { rowsList } from 'config/gameConfig'
 import { useParams } from 'react-router'
 import { getCurrentSets } from 'redux/selectors'
 import { useResetApp } from 'hooks/routerHooks'
@@ -12,7 +12,7 @@ import { useCheckGame } from 'hooks/gameHooks'
 import DiceThrower from 'components/DiceThrower'
 
 const ScoreCard = () => {
-  const { user, game, loading } = useSelector(state => state)
+  const { user, game, loading, gameboard } = useSelector(state => state)
   const playerId = useParams()?.playerId ?? user.userId
   const currentSets = useSelector(getCurrentSets)
   const resetApp = useResetApp()
@@ -40,7 +40,7 @@ const ScoreCard = () => {
         <DiceThrower />
       </Toolbar>
       <List style={{ border: '0.5px solid black', padding: 0 }}>
-        {rows.map(row => (
+        {rowsList.map(row => (
           <Line
             key={row.label}
             game={game}
@@ -48,6 +48,7 @@ const ScoreCard = () => {
             playerId={playerId}
             disabledPlayer={disabledPlayer}
             currentSetId={currentSetId}
+            gameboard={gameboard}
           />
         ))}
       </List>

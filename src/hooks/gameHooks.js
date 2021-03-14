@@ -5,6 +5,7 @@ import * as actions from 'redux/actions'
 import { useHistory, useLocation } from 'react-router-dom'
 import { checkGameFinished } from 'config/gameConfig'
 import produce from 'immer'
+import { generateDices } from 'config/gameboardConfig'
 
 export const useWatchGame = () => {
   const dispatch = useDispatch()
@@ -13,6 +14,10 @@ export const useWatchGame = () => {
 
   const setGame = payload => {
     dispatch({ type: actions.REDUCE_CREATE_GAME, payload })
+    dispatch({
+      type: actions.REDUCE_EDIT_GAMEBOARD,
+      payload: { throws: 0, dices: generateDices() },
+    })
     if (!location.pathname.match('/game'))
       history.push('/game')
   }

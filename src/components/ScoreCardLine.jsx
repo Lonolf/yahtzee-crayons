@@ -1,33 +1,31 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 
-import ScoreCell from 'components/ScoreCardCells'
+import ScoreCell from 'components/ScoreCell'
 import EmptyCell from 'styleComponents/EmptyCell'
 import { useSelector } from 'react-redux'
 import { Toolbar } from '@material-ui/core'
 import translator from 'utility/translator'
 import { getPlayersTotals } from 'redux/selectors'
 import LabelCell from 'components/LabelCell'
+import VirtualScoreCell from 'components/VirtualScoreCell'
 
-export const Line = ({ game, row, playerId, disabledPlayer = false, currentSetId }) => {
+export const Line = ({ game, gameboard, row, playerId, disabledPlayer = false, currentSetId }) => {
   return (
     <Toolbar>
       <LabelCell row={row} />
       {Array.from({ length: game.settings?.sets ?? 1 }, (x, i) => String(i + 1))
         .map(setId => {
-          const disabledCell = disabledPlayer ||
+          const disabled = disabledPlayer ||
             Number(currentSetId) < Number(setId) ||
             game.players[playerId].playerScores[Number(setId) + 1] != null
-          return (
-            <ScoreCell
-              key={row.label + setId}
-              playerId={playerId}
-              setId={setId}
-              row={row}
-              value={game?.players?.[playerId]?.playerScores?.[setId]?.[row.label]}
-              disabled={disabledCell}
-            />
-          )
+
+          const props = { disabled, gameboard, playerId, setId, currentSetId, row, value: game?.players?.[playerId]?.playerScores?.[setId]?.[row.label] }
+
+          if (game?.settings.virtualDices)
+            return <VirtualScoreCell {...props} />
+          else
+            return <ScoreCell {...props} />
         },
         )}
     </Toolbar>

@@ -1,14 +1,11 @@
 import { Button, Dialog } from '@material-ui/core'
 import { Casino } from '@material-ui/icons'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from 'redux/actions'
 import { useInterval } from 'react-use'
 import DiceGraphic from 'styleComponents/DiceGraphic'
-
-const generateDices = (length = 5) => Array.from({ length }, (x, index) =>
-  ({ index, value: 1, fixed: false, blocked: false }))
-
-const throwDice = (max = 6) => Math.floor(Math.random() * max) + 1
+import { throwDice } from 'config/gameboardConfig'
 
 const DiceThrower = () => {
   const [open, setOpen] = React.useState(false)
@@ -17,7 +14,7 @@ const DiceThrower = () => {
 
   return (
     <>
-      <Button onClick={onOpen}><Casino /></Button>
+      <Button color='primary' size='large' onClick={onOpen}><Casino /></Button>
       <Dialog onClose={onClose} open={open}>
         <DiceThrowerDialog />
       </Dialog>
@@ -26,48 +23,51 @@ const DiceThrower = () => {
 }
 
 const DiceThrowerDialog = () => {
-  const [values, setValues] = React.useState([])
-  const [throws, setThrows] = React.useState(0)
+  const { dices = [], throws = 0 } = useSelector(state => state.gameboard ?? {})
+  const dispatch = useDispatch()
   const [throwing, setThrowing] = React.useState(0)
-
   const maxThrows = useSelector(state => state.game?.settings?.maxThrows ?? 3)
 
-  const throwDices = (dices = generateDices(), max = 6) => {
-    setThrowing(10)
-    setThrows(throws => throws + 1)
-    setValues(dices.map(({ value, fixed, ...dice }) => ({
-      ...dice,
-      fixed,
-      value: fixed ? value : throwDice(),
-      blocked: !!fixed,
-    })))
-  }
+  const setGameboard = payload => dispatch({ type: actions.REDUCE_EDIT_GAMEBOARD, payload })
 
-  React.useEffect(() => { throwDices() }, [])
+  const throwDices = () => {
+    setThrowing(10)
+    setGameboard({
+      throws: throws + 1,
+      dices: dices.map(({ value, fixed, ...dice }) => ({
+        ...dice,
+        fixed,
+        value: fixed ? value : throwDice(),
+        blocked: !!fixed,
+      })),
+    })
+  }
 
   useInterval(() => { setThrowing(value => value - 1) },
     throwing <= 0 ? null : 100,
   )
 
   const setFixed = index => {
-    setValues(values => values.map((value) => ({
-      ...value,
-      fixed: index === value.index && !value.blocked ? !value.fixed : value.fixed,
-    })))
+    setGameboard({
+      dices: dices.map((dice) => ({
+        ...dice,
+        fixed: dice.value > 0 && index === dice.index && !dice.blocked ? !dice.fixed : dice.fixed,
+      })),
+    })
   }
 
   const disabledThrow = throwing > 0 || throws >= maxThrows ||
-    values.every(dice => dice.fixed)
+    (dices.length > 0 && dices.every(dice => dice.fixed))
 
   return (
     <>
-      {values.sort((a, b) => (a.blocked === b.blocked) ? 0 : a.blocked ? -1 : 1)
+      {[...dices].sort((a, b) => (a.blocked === b.blocked) ? 0 : a.blocked ? -1 : 1)
         .map(dice =>
           <Dice key={dice.index} throwing={throwing} dice={dice} setFixed={setFixed} />)}
       <Button
         variant='contained'
         color='secondary'
-        onClick={() => throwDices(values)}
+        onClick={() => throwDices()}
         disabled={disabledThrow}
       >
         Throw

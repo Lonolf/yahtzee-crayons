@@ -1,3 +1,8 @@
+export const gameboard = {
+  dices: [],
+  throws: 0,
+}
+
 export const user = {
   userId: null,
   userName: null,
