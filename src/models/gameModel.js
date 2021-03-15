@@ -5,6 +5,7 @@ const statusesList = ['started', 'finished']
 export const gameModel = ({
   gameId = null,
   players = {},
+  playingPlayer = 0,
   status = 'started',
   settings = { sets: 3, players: 2 },
   winner = null,
@@ -17,6 +18,7 @@ export const gameModel = ({
       const modeledPlayer = playerModel(player)
       return ({ ...list, [modeledPlayer.playerId]: modeledPlayer })
     }, {}),
+  playingPlayer: Number(playingPlayer),
   settings, // TODO: validate settings
   status: statusesList.includes(status) ? status : statusesList[0],
   winner: players[winner] != null ? winner : null,

@@ -30,6 +30,13 @@ const game = produce((draft, { type, payload }) => {
   }
 }, {})
 
+const gameboard = produce((draft, { type, payload }) => {
+  switch (type) {
+    case actions.REDUCE_EDIT_GAMEBOARD:
+      return ({ ...draft, ...payload })
+  }
+}, initialState.gameboard)
+
 const loading = produce((draft, { type, payload }) => {
   switch (type) {
     case actions.START_LOADING:
@@ -58,6 +65,7 @@ const user = produce((draft, { type, payload }) => {
 const rootReducer = combineReducers({
   error,
   game,
+  gameboard,
   loading,
   settings,
   user,

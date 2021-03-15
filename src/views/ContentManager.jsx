@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core'
 
 import MainMenu from 'views/MainMenu'
 import MenuBar from 'views/MenuBar'
+import GameMessages from 'views/GameMessages'
 import ScoreCard from 'views/ScoreCard'
 import Login from 'views/Login'
 import Victory from 'views/Victory'
@@ -22,6 +23,7 @@ const ContentManager = () => {
           <>
             <Route path='/game/:playerId?'><MenuBar /></Route>
             <Route exact path='/'><MainMenu /></Route>
+            <Route path='/game/:playerId?'><GameMessages /></Route>
             <Route path='/game/:playerId?'><ScoreCard /></Route>
             <Route path='/game/:playerId?'><Victory /></Route>
           </>

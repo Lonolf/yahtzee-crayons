@@ -56,7 +56,10 @@ export const loadGame = async({ gameId, player }) => {
 
   const newGame = gameModel({
     ...game,
-    players: { ...game.players, [player.playerId]: player },
+    players: {
+      ...game.players,
+      [player.playerId]: { ...player, playerPosition: Object.keys(game.players).length },
+    },
   })
 
   await firebase.setCollectionDoc({
@@ -86,7 +89,7 @@ export const saveGame = async({ game }) => {
 
 export const saveScore = async({ gameId, playerId, playerScores }) => {
   try {
-    await firebase.updateCollectionDoc({
+    await firebase.setCollectionDoc({
       collectionId: 'games',
       docId: gameId,
       keyId: `players.${playerId}.playerScores`,

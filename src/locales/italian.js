@@ -134,6 +134,16 @@ const settings = {
   settings_title: 'Settings',
   settings_players: 'Giocatori',
   settings_sets: 'Sets',
+  settings_maxThrows: 'Numero di lanci',
+  settings_virtualDices: 'Dadi virtuali',
+}
+
+const gameMessage = {
+  gameMessage_gameEnded: 'Partita terminata',
+  gameMessage_waitingNewPlayer: 'In attesa di un nuovo giocatore',
+  gameMessage_goToPlayingPlayer: 'Vai al giocatore di turno',
+  gameMessage_yourTurn: 'É il tuo turno. Gioca!',
+  gameMessage_playingPlayer: 'In attesa della sua mossa...',
 }
 
 export const italian = {
@@ -150,4 +160,5 @@ export const italian = {
   ...scoreCard,
   ...victory,
   ...settings,
+  ...gameMessage,
 }

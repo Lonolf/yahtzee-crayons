@@ -1,6 +1,6 @@
 {
   "name": "yahtzee",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -20,6 +20,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-use": "^17.1.1",
+    "redux": "^4.0.5",
     "reselect": "^4.0.0",
     "uniqid": "^5.3.0",
     "web-vitals": "^0.2.4",

@@ -30,6 +30,11 @@ const theme = createMuiTheme({
         height: 2,
       },
     },
+    MuiPaper: {
+      root: {
+        backgroundColor: 'white',
+      },
+    },
     MuiToolbar: {
       root: {
         width: '100%',
