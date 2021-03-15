@@ -67,14 +67,17 @@ A simple app to keep scores in game of yahtzee.
 - [ ] Dadi spostabili
 - [ ] Aggiungi giocatore locale
 - [ ] Salvare i settings del giocatore
+- [ ] Grafica con molti sets?
+- [ ] AnalogDice con finestra e conferma per il cambio turno
 ## BUGS
 - [*] Login + link di invito bug
 - [*] Concorrenza salvataggio dati
 - [*] Bloccare proposte sul tabellone avversario
 - [*] Errore conto scala 4 (1,2,3,4,2)
 - [*] Errore full house (1,1,1,1,2)
-- [ ] Verificare la concorrenza tra i giocatori
+- [*] Verificare la concorrenza tra i giocatori
 ## VERSIONS
 
 1.0 First playthrough
 1.1.0 Virtual dices
+1.1.3 Bugfixing

@@ -3,6 +3,7 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 import { Button, Paper, Toolbar } from '@material-ui/core'
+import { Done } from '@material-ui/icons'
 import { useParams } from 'react-router'
 import { useResetApp } from 'hooks/routerHooks'
 import { useCheckGame, useEndTurn } from 'hooks/gameHooks'
@@ -30,16 +31,13 @@ const ScoreCard = () => {
     return null
 
   return (
-    <>
-      <Paper style={{ padding: 16, position: 'fixed' }}>
-        {disabledPlayer
-          ? <PlayingPlayer visualizedPlayer={visualizedPlayer} />
-          : game.settings.virtualDices
-            ? <DiceThrower />
-            : <PassTurn />}
-      </Paper>
-      <div style={{ height: 90 }} />
-    </>
+    <Paper style={{ padding: 16, position: 'sticky', top: 45, zIndex: 1000 }}>
+      {disabledPlayer
+        ? <PlayingPlayer visualizedPlayer={visualizedPlayer} />
+        : game.settings.virtualDices
+          ? <DiceThrower />
+          : <PassTurn />}
+    </Paper>
   )
 }
 
@@ -48,7 +46,7 @@ const PassTurn = () => {
   return (
     <Toolbar style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
       <Button variant='contained' color='primary' onClick={endTurn}>
-        Pass
+        <Done />
       </Button>
     </Toolbar>
   )

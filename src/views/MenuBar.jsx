@@ -34,7 +34,7 @@ const MenuBar = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <div style={{ height: 50 }} />
+      <div style={{ height: 35 }} />
     </>
   )
 }
