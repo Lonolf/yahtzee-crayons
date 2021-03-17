@@ -67,7 +67,8 @@ A simple app to keep scores in game of yahtzee.
 - [ ] Dadi spostabili
 - [ ] Aggiungi giocatore locale
 - [ ] Salvare i settings del giocatore
-- [ ] Grafica con molti sets?
+- [*] Grafica con molti sets?
+  - [*] Inserita Material Grid
 - [ ] AnalogDice con finestra e conferma per il cambio turno
 ## BUGS
 - [*] Login + link di invito bug
