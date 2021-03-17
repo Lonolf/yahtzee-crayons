@@ -2,9 +2,6 @@ import { styled } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
 const EmptyCell = styled(Button)(({ flexgrow = 1, padded = false, total = false, theme }) => ({
-  border: `${total ? '2' : '1'}px solid ${theme.palette.primary.main}`,
-  borderRadius: 0,
-  flex: `${flexgrow} 0 50px`,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -12,6 +9,8 @@ const EmptyCell = styled(Button)(({ flexgrow = 1, padded = false, total = false,
   fontSize: total ? 'larger' : 'inherit',
   padding: padded ? `0 ${theme.spacing(2)}px` : 0,
   color: theme.palette.secondary.main,
+  height: '100%',
+  width: '100%',
 }))
 
 export default EmptyCell

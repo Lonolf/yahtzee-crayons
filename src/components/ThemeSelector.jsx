@@ -8,7 +8,15 @@ const theme = createMuiTheme({
   overrides: {
     MuiDataGrid: {
       root: {
-        border: '1px solid black',
+        border: '0px',
+        '& .MuiDataGrid-cellWithRenderer': {
+          padding: 0,
+          borderLeft: '1px solid lightgrey',
+          borderRight: '0px',
+        },
+        '& .MuiDataGrid-menuIcon': {
+          display: 'none',
+        },
       },
     },
     MuiContainer: {

@@ -104,6 +104,7 @@ const mainMenu = {
 }
 
 const scoreCard = {
+  scoreCard_set_title: 'Set {{setId}}',
   scoreCard_totals_title: 'Totali',
   gameMenu_title: 'Menù di gioco',
   gameMenu_share_title: 'Url',
@@ -132,9 +133,9 @@ const victory = {
 const settings = {
   settings_button: 'Game Settings',
   settings_title: 'Settings',
-  settings_players: 'Giocatori',
-  settings_sets: 'Sets',
-  settings_maxThrows: 'Numero di lanci',
+  settings_players: 'Giocatori: ',
+  settings_sets: 'Sets: ',
+  settings_maxThrows: 'Numero di lanci: ',
   settings_virtualDices: 'Dadi virtuali',
 }
 

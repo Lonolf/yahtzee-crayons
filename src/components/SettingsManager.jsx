@@ -32,7 +32,9 @@ const SettingsManager = () => {
           <IconButton style={{ marginRight: 24 }} onClick={onClose}><Close /></IconButton>
         </Toolbar>
         <DialogContent>
-          <Typography color='primary'>{translator.fromLabel('settings_players')}</Typography>
+          <Typography color='primary'>
+            {translator.fromLabel('settings_players') + settings.players}
+          </Typography>
           <Slider
             defaultValue={settings.players}
             valueLabelDisplay='auto'
@@ -42,7 +44,9 @@ const SettingsManager = () => {
             max={10}
             onChangeCommitted={(event, value) => onChange({ players: value })}
           />
-          <Typography color='secondary'>{translator.fromLabel('settings_sets')}</Typography>
+          <Typography color='secondary'>
+            {translator.fromLabel('settings_sets') + settings.sets}
+          </Typography>
           <Slider
             defaultValue={settings.sets}
             valueLabelDisplay='auto'
@@ -64,7 +68,9 @@ const SettingsManager = () => {
             )}
             label={translator.fromLabel('settings_virtualDices')}
           />
-          <Typography color='secondary'>{translator.fromLabel('settings_maxThrows')}</Typography>
+          <Typography color='secondary'>
+            {translator.fromLabel('settings_maxThrows') + settings.maxThrows}
+          </Typography>
           <Slider
             defaultValue={settings.maxThrows}
             valueLabelDisplay='auto'
